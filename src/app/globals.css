@@ -3,25 +3,81 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ivory: #f4ebdd;
+  --leaf: #53633f;
+  --saffron: #c99528;
+  --cocoa: #2b2118;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--cocoa);
+  background: var(--ivory);
+  font-family: Inter, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: #c99528;
+  color: #fff9ef;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+/* Thin elegant scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f4ebdd;
+}
+::-webkit-scrollbar-thumb {
+  background: #d8c7a5;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #c99528;
+}
+
+/* Per-letter X-axis flip on hover (SpinText component) */
+.spin-text {
+  display: inline-block;
+}
+.spin-text > span {
+  display: inline-block;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+a:hover .spin-text > span,
+button:hover .spin-text > span,
+.group:hover .spin-text > span {
+  transform: rotateX(360deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a:hover .spin-text > span,
+  button:hover .spin-text > span,
+  .group:hover .spin-text > span {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
