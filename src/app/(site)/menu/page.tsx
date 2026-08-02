@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import MenuBrowser from "@/components/MenuBrowser";
+import { getMenuItems } from "@/lib/data/menu";
 
 export const metadata: Metadata = {
   title: "Menu — The Curry Leaf, Lubowa",
@@ -7,7 +8,11 @@ export const metadata: Metadata = {
     "Browse the full Curry Leaf launch menu: tandoori appetisers, butter chicken, biryani, vegetarian curries, tandoor breads, thali lunches and desserts. All prices inclusive of VAT.",
 };
 
-export default function MenuPage() {
+export const revalidate = 60;
+
+export default async function MenuPage() {
+  const dishes = await getMenuItems();
+
   return (
     <div className="pt-24">
       <div className="mx-auto max-w-content px-5 pb-6 pt-10 text-center lg:px-8">
@@ -22,7 +27,7 @@ export default function MenuPage() {
           favourite dish.
         </p>
       </div>
-      <MenuBrowser />
+      <MenuBrowser dishes={dishes} />
     </div>
   );
 }

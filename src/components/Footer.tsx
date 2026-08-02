@@ -4,7 +4,7 @@ import { site, whatsappLink } from "@/data/site";
 
 export default function Footer() {
   return (
-    <footer className="bg-leaf-deep text-cream">
+    <footer className="bg-leaf-deep pb-20 text-cream lg:pb-0">
       <div className="mx-auto grid max-w-content gap-10 px-5 py-14 md:grid-cols-3 lg:px-8">
         <div>
           <Image

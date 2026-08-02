@@ -96,7 +96,7 @@ export default function Navbar() {
           onClick={() => setOpen(!open)}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
-          className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 xl:hidden"
+          className="hidden h-10 w-10 flex-col items-center justify-center gap-1.5 lg:flex xl:hidden"
         >
           <span
             className={`h-0.5 w-6 rounded transition-all ${

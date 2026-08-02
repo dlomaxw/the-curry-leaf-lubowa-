@@ -2,14 +2,12 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { dishes, formatUGX, categories } from "@/data/menu";
+import { formatUGX, categories, type Dish } from "@/data/menu";
 import SpiceLevel from "./SpiceLevel";
 import DietaryBadge from "./DietaryBadge";
 import SpinText from "./SpinText";
-
-const featured = dishes.filter((d) => d.featured);
 
 function categoryLabel(id: string) {
   return categories.find((c) => c.id === id)?.label ?? id;
@@ -125,6 +123,9 @@ function Plate({
             priority={priority}
             sizes="(max-width: 1024px) 60vw, 26rem"
             className="object-cover"
+            // Admins can link to any external image, not just our own
+            // bucket — skip the optimizer's domain allow-list for those.
+            unoptimized={!image.startsWith("/")}
           />
         ) : (
           <div
@@ -163,7 +164,8 @@ function Plate({
   );
 }
 
-export default function MenuShowcase() {
+export default function MenuShowcase({ dishes }: { dishes: Dish[] }) {
+  const featured = useMemo(() => dishes.filter((d) => d.featured), [dishes]);
   const [active, setActive] = useState(0);
   const refs = useRef<(HTMLDivElement | null)[]>([]);
   const reduce = useReducedMotion();
@@ -184,7 +186,9 @@ export default function MenuShowcase() {
     return () => observer.disconnect();
   }, []);
 
-  const accent = featured[active].accent ?? "#C99528";
+  if (featured.length === 0) return null;
+
+  const accent = featured[active]?.accent ?? "#C99528";
 
   return (
     <motion.section

@@ -8,13 +8,18 @@ import {
   GalleryStrip,
   ContactCta,
 } from "@/components/HomeSections";
+import { getMenuItems } from "@/lib/data/menu";
 
-export default function Home() {
+export const revalidate = 60;
+
+export default async function Home() {
+  const dishes = await getMenuItems();
+
   return (
     <>
       <Hero />
       <FeatureIcons />
-      <MenuShowcase />
+      <MenuShowcase dishes={dishes} />
       <BreakfastBand />
       <BuffetBand />
       <ExperiencesTeaser />

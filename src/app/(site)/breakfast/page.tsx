@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import BreakfastOrder from "@/components/BreakfastOrder";
 import { site } from "@/data/site";
+import { getBreakfastItems } from "@/lib/data/breakfast";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Breakfast Ordering — Bombay Adda at The Curry Leaf, Lubowa",
@@ -23,7 +26,9 @@ const highlights = [
   },
 ];
 
-export default function BreakfastPage() {
+export default async function BreakfastPage() {
+  const breakfastItems = await getBreakfastItems();
+
   return (
     <div className="pt-24">
       <div className="mx-auto max-w-content px-5 pb-4 pt-10 text-center lg:px-8">
@@ -56,7 +61,7 @@ export default function BreakfastPage() {
         </div>
       </div>
 
-      <BreakfastOrder />
+      <BreakfastOrder breakfastItems={breakfastItems} />
     </div>
   );
 }

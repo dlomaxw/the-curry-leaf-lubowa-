@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { whatsappLink } from "@/data/site";
+import { submitReservation } from "@/app/(site)/actions";
 
 const occasions = [
   "Standard table",
@@ -46,6 +47,18 @@ export default function ReservationForm() {
       .join("\n");
     window.open(whatsappLink(msg), "_blank");
     setSent(true);
+
+    submitReservation({
+      name: form.name,
+      phone: form.phone,
+      guests: Number(form.guests),
+      date: form.date,
+      time: form.time,
+      occasion: form.occasion,
+      notes: form.notes,
+    }).catch(() => {
+      // WhatsApp already opened — a storage hiccup shouldn't block the guest.
+    });
   }
 
   const input =

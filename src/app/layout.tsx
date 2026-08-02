@@ -1,8 +1,12 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import SplashScreen from "@/components/SplashScreen";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  // Lets the bottom tab bar pad itself around the iPhone home-indicator area.
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   // Update to the live domain once the site is deployed.
@@ -43,10 +47,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans bg-ivory text-cocoa antialiased">
-        <SplashScreen />
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );

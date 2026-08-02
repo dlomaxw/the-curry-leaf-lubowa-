@@ -4,8 +4,8 @@ import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import {
   categories,
-  dishes,
   formatUGX,
+  type Dish,
   type CategoryId,
   type Dietary,
 } from "@/data/menu";
@@ -23,7 +23,7 @@ const dietFilters: { id: DietFilter; label: string }[] = [
   { id: "dairy-free", label: "Dairy-Free" },
 ];
 
-export default function MenuBrowser() {
+export default function MenuBrowser({ dishes }: { dishes: Dish[] }) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<CategoryId | "all">("all");
   const [diet, setDiet] = useState<DietFilter>("all");
@@ -45,7 +45,7 @@ export default function MenuBrowser() {
         return false;
       return true;
     });
-  }, [query, category, diet]);
+  }, [dishes, query, category, diet]);
 
   const grouped = useMemo(() => {
     return categories

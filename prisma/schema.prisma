@@ -1,0 +1,149 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+enum Role {
+  ADMIN
+  MANAGER
+  STAFF
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(STAFF)
+  createdAt    DateTime @default(now())
+}
+
+enum Dietary {
+  VEG
+  VEGAN
+  NON_VEG
+}
+
+model MenuItem {
+  id           String   @id @default(cuid())
+  name         String
+  category     String
+  price        Int
+  priceMax     Int?
+  description  String
+  dietary      Dietary
+  spice        Int      @default(0)
+  featured     Boolean  @default(false)
+  accent       String?
+  image        String?
+  containsNuts Boolean  @default(false)
+  glutenFree   Boolean  @default(false)
+  dairyFree    Boolean  @default(false)
+  available    Boolean  @default(true)
+  sortOrder    Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model BreakfastItem {
+  id          String   @id @default(cuid())
+  name        String
+  category    String
+  price       Int
+  priceMax    Int?
+  description String?
+  includes    String[]
+  choices     Json?
+  available   Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum ReservationStatus {
+  RECEIVED
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+  NO_SHOW
+}
+
+model Reservation {
+  id        String            @id @default(cuid())
+  name      String
+  phone     String
+  guests    Int
+  date      String
+  time      String
+  occasion  String
+  notes     String?
+  status    ReservationStatus @default(RECEIVED)
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+}
+
+enum OrderStatus {
+  RECEIVED
+  PREPARING
+  READY
+  COMPLETED
+  CANCELLED
+}
+
+enum Fulfilment {
+  PICKUP
+  DELIVERY
+}
+
+model BreakfastOrder {
+  id           String      @id @default(cuid())
+  name         String
+  phone        String
+  fulfilment   Fulfilment
+  date         String
+  time         String
+  address      String?
+  pinLat       Float?
+  pinLng       Float?
+  pinAccuracy  Int?
+  notes        String?
+  items        Json
+  total        Int
+  hasVariable  Boolean     @default(false)
+  status       OrderStatus @default(RECEIVED)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+}
+
+enum EnquiryKind {
+  FAMILY
+  CORPORATE
+  PRIVATE
+}
+
+enum EnquiryStatus {
+  NEW
+  CONTACTED
+  QUOTED
+  CONFIRMED
+  CLOSED
+}
+
+model Enquiry {
+  id           String        @id @default(cuid())
+  kind         EnquiryKind
+  name         String
+  phone        String
+  guests       Int
+  date         String
+  extra        String?
+  requirements String?
+  status       EnquiryStatus @default(NEW)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}

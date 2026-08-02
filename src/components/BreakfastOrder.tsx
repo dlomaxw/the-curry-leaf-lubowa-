@@ -4,12 +4,12 @@ import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   breakfastCategories,
-  breakfastItems,
   breakfastSlots,
   type BreakfastItem,
 } from "@/data/breakfast";
 import { formatUGX } from "@/data/menu";
 import { site, whatsappLink } from "@/data/site";
+import { submitBreakfastOrder } from "@/app/(site)/actions";
 
 interface CartLine {
   /** Composite of item id + chosen options, so two different combos stay separate. */
@@ -43,7 +43,11 @@ function lineKey(item: BreakfastItem, selections: Record<string, string>) {
   return [item.id, ...parts].join("|");
 }
 
-export default function BreakfastOrder() {
+export default function BreakfastOrder({
+  breakfastItems,
+}: {
+  breakfastItems: BreakfastItem[];
+}) {
   const [cart, setCart] = useState<CartLine[]>([]);
   const [hydrated, setHydrated] = useState(false);
   const [choices, setChoices] = useState<Record<string, Record<string, string>>>(
@@ -54,6 +58,9 @@ export default function BreakfastOrder() {
   const [fulfilment, setFulfilment] = useState<Fulfilment>("pickup");
   const [pin, setPin] = useState<Pin | null>(null);
   const [geoState, setGeoState] = useState<GeoState>("idle");
+  const [cartOpen, setCartOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [nearBottom, setNearBottom] = useState(false);
   const [details, setDetails] = useState({
     name: "",
     phone: "",
@@ -62,6 +69,31 @@ export default function BreakfastOrder() {
     address: "",
     notes: "",
   });
+
+  // Mirrors Tailwind's `lg` breakpoint — below it, the order panel becomes a
+  // slide-up drawer instead of the always-visible sticky sidebar.
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    setIsMobile(!mq.matches);
+    const onChange = () => setIsMobile(!mq.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
+  // The floating summary bar is viewport-fixed, so without this it would
+  // permanently cover the footer's last links once the guest scrolls all
+  // the way down — hide it as soon as the footer comes into view instead.
+  useEffect(() => {
+    const onScroll = () => {
+      const scrolledToBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 260;
+      setNearBottom(scrolledToBottom);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   // Restore any cart left from a previous visit.
   useEffect(() => {
@@ -205,6 +237,27 @@ export default function BreakfastOrder() {
       .join("\n");
 
     window.open(whatsappLink(msg), "_blank");
+
+    submitBreakfastOrder({
+      name: details.name,
+      phone: details.phone,
+      fulfilment: fulfilment === "pickup" ? "PICKUP" : "DELIVERY",
+      date: details.date,
+      time: details.time,
+      address: fulfilment === "delivery" ? details.address : undefined,
+      pin: fulfilment === "delivery" && pin ? pin : undefined,
+      notes: details.notes,
+      items: cart.map((l) => ({
+        name: l.name,
+        qty: l.qty,
+        price: l.price,
+        selections: l.selections,
+      })),
+      total,
+      hasVariable: hasVariablePrice,
+    }).catch(() => {
+      // WhatsApp already opened — a storage hiccup shouldn't block the guest.
+    });
   }
 
   const input =
@@ -213,7 +266,7 @@ export default function BreakfastOrder() {
     "mb-1.5 block text-xs font-semibold uppercase tracking-wider text-cocoa/60";
 
   return (
-    <div className="mx-auto max-w-content px-5 pb-24 lg:px-8">
+    <div className="mx-auto max-w-content px-5 pb-28 lg:px-8 lg:pb-24">
       <div className="grid gap-10 lg:grid-cols-[1fr_22rem] lg:items-start">
         {/* Menu */}
         <div>
@@ -318,11 +371,45 @@ export default function BreakfastOrder() {
           })}
         </div>
 
-        {/* Order panel */}
-        <form
+        {/* Order panel — an always-visible sticky sidebar on desktop; on
+            mobile the same form becomes a slide-up drawer opened from the
+            floating summary bar, so guests never scroll past the whole menu
+            just to check out. */}
+        {isMobile && cartOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setCartOpen(false)}
+            className="fixed inset-0 z-40 bg-cocoa/50 lg:hidden"
+          />
+        )}
+        <motion.form
           onSubmit={submitOrder}
-          className="rounded-3xl bg-cream p-6 shadow-lg shadow-sand/40 lg:sticky lg:top-24"
+          initial={false}
+          animate={{ y: isMobile && !cartOpen ? "100%" : 0 }}
+          transition={{ type: "spring", damping: 30, stiffness: 300 }}
+          className={`fixed inset-x-0 bottom-0 z-50 max-h-[88svh] overflow-y-auto rounded-t-3xl bg-cream p-6 shadow-2xl lg:static lg:z-auto lg:max-h-none lg:overflow-visible lg:rounded-3xl lg:shadow-lg lg:shadow-sand/40 lg:sticky lg:top-24 ${
+            !isMobile || cartOpen ? "" : "pointer-events-none"
+          }`}
+          style={
+            isMobile
+              ? { paddingBottom: "calc(1.5rem + env(safe-area-inset-bottom))" }
+              : undefined
+          }
+          aria-hidden={isMobile && !cartOpen}
         >
+          <div className="mb-2 flex items-center justify-between lg:hidden">
+            <div className="mx-auto h-1 w-10 rounded-full bg-sand" />
+            <button
+              type="button"
+              onClick={() => setCartOpen(false)}
+              aria-label="Close order summary"
+              className="absolute right-5 top-5 text-cocoa/40"
+            >
+              ✕
+            </button>
+          </div>
           <h2 className="font-serif text-2xl font-semibold text-leaf-deep">
             Your Order
           </h2>
@@ -618,8 +705,35 @@ export default function BreakfastOrder() {
             team. We confirm the {fulfilment === "pickup" ? "pickup" : "delivery"}{" "}
             time and total when we reply.
           </p>
-        </form>
+        </motion.form>
       </div>
+
+      {/* Floating summary bar — mobile only, sits above the tab bar */}
+      <AnimatePresence>
+        {isMobile && !cartOpen && !nearBottom && cart.length > 0 && (
+          <motion.button
+            type="button"
+            onClick={() => setCartOpen(true)}
+            initial={{ y: 80, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 80, opacity: 0 }}
+            transition={{ type: "spring", damping: 30, stiffness: 300 }}
+            className="fixed inset-x-4 z-30 flex items-center justify-between rounded-full bg-leaf px-5 py-4 text-cream shadow-xl shadow-cocoa/30 lg:hidden"
+            style={{ bottom: "calc(4.75rem + env(safe-area-inset-bottom))" }}
+          >
+            <span className="flex items-center gap-2 text-sm font-semibold">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-cream/20 text-xs">
+                {itemCount}
+              </span>
+              View Order
+            </span>
+            <span className="font-serif text-lg text-saffron-light">
+              {hasVariablePrice ? "~" : ""}
+              {formatUGX(total)}
+            </span>
+          </motion.button>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

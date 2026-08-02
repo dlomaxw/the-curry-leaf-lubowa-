@@ -2,6 +2,13 @@
 
 import { useState } from "react";
 import { whatsappLink } from "@/data/site";
+import { submitEnquiry } from "@/app/(site)/actions";
+
+function enquiryKind(kind: string): "FAMILY" | "CORPORATE" | "PRIVATE" {
+  if (kind.includes("corporate")) return "CORPORATE";
+  if (kind.includes("private")) return "PRIVATE";
+  return "FAMILY";
+}
 
 export default function EnquiryForm({
   kind,
@@ -37,6 +44,18 @@ export default function EnquiryForm({
       .filter(Boolean)
       .join("\n");
     window.open(whatsappLink(msg), "_blank");
+
+    submitEnquiry({
+      kind: enquiryKind(kind),
+      name: form.name,
+      phone: form.phone,
+      guests: Number(form.guests),
+      date: form.date,
+      extra: form.extra,
+      requirements: form.requirements,
+    }).catch(() => {
+      // WhatsApp already opened — a storage hiccup shouldn't block the guest.
+    });
   }
 
   const input =
