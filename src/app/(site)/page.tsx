@@ -2,6 +2,7 @@ import Hero from "@/components/Hero";
 import FeatureIcons from "@/components/FeatureIcons";
 import MenuShowcase from "@/components/MenuShowcase";
 import {
+  FilmFestivalBand,
   BreakfastBand,
   BuffetBand,
   ExperiencesTeaser,
@@ -18,6 +19,7 @@ export default async function Home() {
   return (
     <>
       <Hero />
+      <FilmFestivalBand />
       <FeatureIcons />
       <MenuShowcase dishes={dishes} />
       <BreakfastBand />

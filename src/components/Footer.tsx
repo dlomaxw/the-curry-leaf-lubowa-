@@ -59,6 +59,7 @@ export default function Footer() {
             <li><Link href="/menu" className="hover:text-saffron-light">Menu</Link></li>
             <li><Link href="/breakfast" className="hover:text-saffron-light">Breakfast</Link></li>
             <li><Link href="/reservations" className="hover:text-saffron-light">Reservations</Link></li>
+            <li><Link href="/film-festival" className="hover:text-saffron-light">Film Festival</Link></li>
             <li><Link href="/experiences" className="hover:text-saffron-light">Experiences</Link></li>
             <li><Link href="/about" className="hover:text-saffron-light">About Us</Link></li>
             <li><Link href="/contact" className="hover:text-saffron-light">Contact</Link></li>

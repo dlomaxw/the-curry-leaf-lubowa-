@@ -4,6 +4,47 @@ import Reveal from "./Reveal";
 import SpinText from "./SpinText";
 import { sundayBuffet, formatUGX } from "@/data/menu";
 import { site, whatsappLink } from "@/data/site";
+import { festival } from "@/data/filmFestival";
+import FestivalRiceArt from "./FestivalRiceArt";
+
+export function FilmFestivalBand() {
+  return (
+    <section className="relative overflow-hidden bg-leaf-deep py-16 text-cream">
+      <div className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-chilli via-cream to-leaf" />
+      <div className="absolute inset-x-0 bottom-0 h-1.5 bg-gradient-to-r from-leaf via-cream to-chilli" />
+      <div className="mx-auto grid max-w-content items-center gap-10 px-5 lg:grid-cols-[22rem_1fr] lg:gap-14 lg:px-8">
+        <FestivalRiceArt />
+
+        <Reveal className="text-center lg:text-left">
+          <p className="text-xs uppercase tracking-[0.35em] text-saffron-light">
+            Special Event · {festival.dates}
+          </p>
+          <h2 className="mt-3 font-serif text-4xl font-semibold sm:text-5xl">
+            Celebrate Indian Independence Day at The Curry Leaf!
+          </h2>
+          <p className="mt-3 font-serif text-xl text-saffron-light">
+            {festival.name}
+          </p>
+          <p className="mx-auto mt-4 max-w-2xl text-cream/75 lg:mx-0">
+            Three weekends of cinema under the stars, celebrating India
+            through film. Lagaan, Gandhi, Slumdog Millionaire, 3 Idiots,
+            Viceroy&apos;s House and more — with selected indoor afternoon
+            screenings too.
+          </p>
+          <p className="mt-3 text-sm text-saffron-light">
+            Tickets {formatUGX(festival.ticketPrice)} per film · At the door
+          </p>
+          <Link
+            href="/film-festival"
+            className="mt-7 inline-block rounded-full bg-saffron px-8 py-3.5 font-semibold text-cocoa transition-transform hover:scale-105 hover:bg-saffron-light"
+          >
+            <SpinText text="See the Full Schedule" />
+          </Link>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
 
 const morningPicks = [
   { name: "The Kampala Breakfast", price: 42000 },

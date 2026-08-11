@@ -59,6 +59,7 @@ const tabs = [
 ];
 
 const moreLinks = [
+  { href: "/film-festival", label: "Film Festival" },
   { href: "/experiences", label: "Experiences" },
   { href: "/about", label: "About Us" },
   { href: "/contact", label: "Contact" },

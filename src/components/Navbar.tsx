@@ -11,6 +11,7 @@ const links = [
   { href: "/menu", label: "Menu" },
   { href: "/breakfast", label: "Breakfast" },
   { href: "/reservations", label: "Reservations" },
+  { href: "/film-festival", label: "Film Festival" },
   { href: "/experiences", label: "Experiences" },
   { href: "/about", label: "About Us" },
   { href: "/contact", label: "Contact" },
