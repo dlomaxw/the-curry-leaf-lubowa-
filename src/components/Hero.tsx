@@ -29,8 +29,15 @@ function useParticles(count: number) {
   );
 }
 
-const line1 = "The Soul of India,";
-const line2 = "Served in Kampala";
+const heroWords: { text: string; accent?: boolean }[] = [
+  { text: "The" },
+  { text: "Soul" },
+  { text: "of" },
+  { text: "India," },
+  { text: "Served", accent: true },
+  { text: "in", accent: true },
+  { text: "Kampala", accent: true },
+];
 
 export default function Hero() {
   const reduce = useReducedMotion();
@@ -39,23 +46,34 @@ export default function Hero() {
   const bgScale = useTransform(scrollY, [0, 800], [1, 1.05]);
   const bgY = useTransform(scrollY, [0, 800], [0, 120]);
 
+  // Flatten the headline into per-word/per-letter spans with a running
+  // index so the whole line reveals letter by letter in reading order.
+  const heroChars = useMemo(() => {
+    let i = 0;
+    return heroWords.map((w) => ({
+      ...w,
+      chars: Array.from(w.text).map((ch) => ({ ch, index: i++ })),
+    }));
+  }, []);
+
   return (
     <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-cocoa">
       <motion.div
         style={reduce ? undefined : { scale: bgScale, y: bgY }}
-        className="absolute inset-0"
+        className="absolute inset-0 overflow-hidden opacity-40"
       >
-        <Image
-          src="/images/veranda.webp"
-          alt=""
-          fill
-          priority
-          className="object-cover opacity-40"
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/LdbBAiJb9NE?autoplay=1&mute=1&loop=1&playlist=LdbBAiJb9NE&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&playsinline=1&disablekb=1&vq=hd1080"
+          title=""
+          aria-hidden="true"
+          tabIndex={-1}
+          allow="autoplay; encrypted-media"
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[56.25vw] w-full -translate-x-1/2 -translate-y-1/2 border-0 sm:min-h-full sm:w-[177.78vh] sm:min-w-full"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-cocoa/70 via-cocoa/50 to-cocoa" />
-        {/* warm saffron glow */}
-        <div className="absolute left-1/2 top-1/2 h-[60vh] w-[60vh] -translate-x-1/2 -translate-y-1/2 rounded-full bg-saffron/15 blur-[120px]" />
       </motion.div>
+      <div className="absolute inset-0 bg-gradient-to-b from-cocoa/70 via-cocoa/50 to-cocoa" />
+      {/* warm saffron glow */}
+      <div className="absolute left-1/2 top-1/2 h-[60vh] w-[60vh] -translate-x-1/2 -translate-y-1/2 rounded-full bg-saffron/15 blur-[120px]" />
 
       {!reduce &&
         particles.map((p, i) => (
@@ -107,25 +125,33 @@ export default function Hero() {
           Lubowa · Kampala
         </motion.p>
 
-        <h1 className="mt-6 font-serif text-5xl font-semibold leading-[1.05] text-cream sm:text-6xl lg:text-7xl">
-          {[line1, line2].map((line, li) => (
-            <span key={li} className="block overflow-hidden">
-              <motion.span
-                className="block"
-                initial={reduce ? false : { y: "110%" }}
-                animate={{ y: 0 }}
-                transition={{
-                  duration: 0.9,
-                  delay: 0.4 + li * 0.25,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-              >
-                {li === 1 ? (
-                  <span className="text-saffron-light">{line}</span>
-                ) : (
-                  line
-                )}
-              </motion.span>
+        <h1
+          aria-label="The Soul of India, Served in Kampala"
+          className="mt-6 whitespace-nowrap font-serif font-semibold leading-[1.05] text-cream"
+          style={{ fontSize: "clamp(1.35rem, 5.4vw, 4.5rem)" }}
+        >
+          {heroChars.map((w, wi) => (
+            <span
+              key={wi}
+              aria-hidden
+              className={`mr-[0.28em] inline-block ${w.accent ? "text-saffron-light" : ""}`}
+            >
+              {w.chars.map(({ ch, index }) => (
+                <motion.span
+                  key={index}
+                  className="inline-block"
+                  style={{ transformPerspective: 600 }}
+                  initial={reduce ? false : { opacity: 0, y: 24, rotateX: -80 }}
+                  animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                  transition={{
+                    delay: 0.4 + index * 0.035,
+                    duration: 0.5,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                >
+                  {ch}
+                </motion.span>
+              ))}
             </span>
           ))}
         </h1>
