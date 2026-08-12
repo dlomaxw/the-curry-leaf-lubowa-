@@ -48,7 +48,7 @@ export default async function BreakfastPage() {
           {highlights.map((h) => (
             <div
               key={h.title}
-              className="rounded-2xl border-t-4 border-saffron bg-cream p-5 shadow-sm shadow-sand/40"
+              className="rounded-2xl border-t-4 border-saffron bg-white/70 p-5 shadow-sm shadow-cocoa/5 backdrop-blur-md"
             >
               <h2 className="font-serif text-lg font-semibold text-cocoa">
                 {h.title}

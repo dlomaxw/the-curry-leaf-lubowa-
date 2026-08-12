@@ -62,11 +62,11 @@ export default function ReservationForm() {
   }
 
   const input =
-    "w-full rounded-xl border border-sand bg-cream px-4 py-3 text-sm outline-none focus:border-saffron";
+    "w-full rounded-xl border border-white/60 bg-white/70 px-4 py-3 text-sm outline-none backdrop-blur-sm focus:border-saffron";
   const label = "mb-1.5 block text-xs font-semibold uppercase tracking-wider text-cocoa/60";
 
   return (
-    <form onSubmit={submit} className="rounded-3xl bg-cream p-6 shadow-lg shadow-sand/40 sm:p-8">
+    <form onSubmit={submit} className="rounded-3xl border border-white/60 bg-white/75 p-6 shadow-lg shadow-cocoa/5 backdrop-blur-xl sm:p-8">
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="r-name" className={label}>Full name</label>

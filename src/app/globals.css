@@ -15,7 +15,15 @@ html {
 
 body {
   color: var(--cocoa);
-  background: var(--ivory);
+  /* Soft brand-colour washes fixed behind the page so frosted-glass cards
+     and panels have something gentle to blur against, instead of sitting
+     on flat white. */
+  background:
+    radial-gradient(1100px circle at 8% 0%, rgba(201, 149, 40, 0.09), transparent 55%),
+    radial-gradient(900px circle at 95% 12%, rgba(83, 99, 63, 0.08), transparent 55%),
+    radial-gradient(900px circle at 50% 100%, rgba(166, 56, 39, 0.06), transparent 55%),
+    #ffffff;
+  background-attachment: fixed;
   font-family: Inter, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }

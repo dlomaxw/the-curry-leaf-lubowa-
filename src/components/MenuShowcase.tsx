@@ -13,9 +13,9 @@ function categoryLabel(id: string) {
   return categories.find((c) => c.id === id)?.label ?? id;
 }
 
-const IVORY = [244, 235, 221] as const;
+const IVORY = [253, 251, 248] as const;
 
-/* Blend a dish accent into the warm ivory base so each background stays in
+/* Blend a dish accent into a near-white base so each background stays in
    the brand family instead of turning into a flat block of colour. */
 function tint(hex: string, strength: number) {
   const h = hex.replace("#", "");
@@ -327,7 +327,7 @@ export default function MenuShowcase({ dishes }: { dishes: Dish[] }) {
         {featured.map((d) => (
           <div
             key={d.id}
-            className="w-[85%] flex-none snap-center rounded-3xl p-6 shadow-lg shadow-sand/40"
+            className="w-[85%] flex-none snap-center rounded-3xl border border-white/50 p-6 shadow-lg shadow-cocoa/5"
             style={{ backgroundColor: tint(d.accent ?? "#C99528", 0.16) }}
           >
             <div className="mx-auto w-2/3">

@@ -59,7 +59,7 @@ export default function EnquiryForm({
   }
 
   const input =
-    "w-full rounded-xl border border-sand bg-ivory px-4 py-3 text-sm outline-none focus:border-saffron";
+    "w-full rounded-xl border border-white/60 bg-white/70 px-4 py-3 text-sm outline-none backdrop-blur-sm focus:border-saffron";
 
   return (
     <form onSubmit={submit} className="mt-6 grid gap-4 sm:grid-cols-2">

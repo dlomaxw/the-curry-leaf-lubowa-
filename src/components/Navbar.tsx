@@ -38,7 +38,7 @@ export default function Navbar() {
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
         transparent
           ? "bg-transparent"
-          : "bg-cream/90 backdrop-blur-md shadow-[0_1px_0_rgba(83,99,63,0.15)]"
+          : "bg-white/70 backdrop-blur-md border-b border-white/50 shadow-[0_1px_0_rgba(83,99,63,0.08)]"
       }`}
     >
       <nav className="mx-auto flex max-w-content items-center justify-between px-5 py-4 lg:px-8">
@@ -124,7 +124,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.35 }}
-            className="overflow-hidden bg-cream/95 backdrop-blur-md xl:hidden"
+            className="overflow-hidden border-b border-white/50 bg-white/85 backdrop-blur-xl xl:hidden"
           >
             <div className="flex flex-col gap-1 px-6 pb-8 pt-2">
               {links.map((l, i) => (

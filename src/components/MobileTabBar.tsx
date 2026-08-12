@@ -81,7 +81,7 @@ export default function MobileTabBar() {
     <>
       <nav
         aria-label="Primary"
-        className="fixed inset-x-0 bottom-0 z-40 border-t border-sand/70 bg-cream/95 backdrop-blur-md lg:hidden"
+        className="fixed inset-x-0 bottom-0 z-40 border-t border-white/50 bg-white/75 backdrop-blur-md lg:hidden"
         style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
       >
         <div className="mx-auto flex max-w-content items-stretch justify-between px-1">
@@ -155,7 +155,7 @@ export default function MobileTabBar() {
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
               transition={{ type: "spring", damping: 28, stiffness: 300 }}
-              className="fixed inset-x-0 bottom-0 z-50 rounded-t-3xl bg-cream p-6 pb-10 shadow-2xl lg:hidden"
+              className="fixed inset-x-0 bottom-0 z-50 rounded-t-3xl border border-b-0 border-white/50 bg-white/90 p-6 pb-10 shadow-2xl backdrop-blur-xl lg:hidden"
               style={{
                 paddingBottom: "calc(2.5rem + env(safe-area-inset-bottom))",
               }}

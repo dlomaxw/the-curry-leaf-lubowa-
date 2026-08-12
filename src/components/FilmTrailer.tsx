@@ -42,7 +42,7 @@ export default function FilmTrailer({ film }: { film: Film }) {
       />
       <div className="absolute inset-0 bg-gradient-to-t from-cocoa/60 via-transparent to-transparent" />
       <span className="absolute inset-0 flex items-center justify-center">
-        <span className="flex h-14 w-14 items-center justify-center rounded-full bg-cream/90 shadow-lg transition-transform group-hover:scale-110">
+        <span className="flex h-14 w-14 items-center justify-center rounded-full border border-white/50 bg-white/85 shadow-lg backdrop-blur-sm transition-transform group-hover:scale-110">
           <svg viewBox="0 0 24 24" className="ml-1 h-6 w-6 fill-cocoa">
             <path d="M8 5v14l11-7z" />
           </svg>

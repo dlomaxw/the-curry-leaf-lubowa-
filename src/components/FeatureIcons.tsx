@@ -63,7 +63,7 @@ const features = [
 export default function FeatureIcons() {
   const reduce = useReducedMotion();
   return (
-    <section className="border-y border-sand/60 bg-cream py-16">
+    <section className="border-y border-white/50 py-16">
       <div className="mx-auto grid max-w-content gap-10 px-5 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
         {features.map((f, i) => (
           <motion.div
@@ -77,7 +77,7 @@ export default function FeatureIcons() {
             <div className="relative mx-auto flex h-20 w-20 items-center justify-center">
               {/* Dashed ring that spins up on hover */}
               <div className="absolute inset-0 rounded-full border border-dashed border-saffron/50 transition-transform duration-[1200ms] ease-out group-hover:rotate-[120deg] motion-reduce:transition-none" />
-              <div className="absolute inset-1.5 rounded-full bg-ivory transition-colors duration-500 group-hover:bg-saffron/10" />
+              <div className="absolute inset-1.5 rounded-full border border-white/60 bg-white/60 backdrop-blur-sm transition-colors duration-500 group-hover:bg-saffron/10" />
               <span className="relative text-leaf transition-all duration-500 group-hover:-translate-y-1 group-hover:text-saffron">
                 {f.icon}
               </span>

@@ -85,14 +85,14 @@ export default function ContactPage() {
         </div>
 
         <div>
-          <div className="overflow-hidden rounded-3xl border border-sand shadow-lg shadow-sand/40">
+          <div className="overflow-hidden rounded-3xl border border-white/60 bg-white/50 p-1.5 shadow-lg shadow-cocoa/5 backdrop-blur-md">
             <iframe
               src={site.map.embed}
               title="Map showing The Curry Leaf in Lubowa, Kampala"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               allowFullScreen
-              className="h-[26rem] w-full border-0 lg:h-[32rem]"
+              className="h-[26rem] w-full rounded-2xl border-0 lg:h-[32rem]"
             />
           </div>
           <a

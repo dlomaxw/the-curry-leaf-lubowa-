@@ -261,7 +261,7 @@ export default function BreakfastOrder({
   }
 
   const input =
-    "w-full rounded-xl border border-sand bg-ivory px-4 py-3 text-sm outline-none focus:border-saffron";
+    "w-full rounded-xl border border-white/60 bg-white/70 px-4 py-3 text-sm outline-none backdrop-blur-sm focus:border-saffron";
   const label =
     "mb-1.5 block text-xs font-semibold uppercase tracking-wider text-cocoa/60";
 
@@ -294,7 +294,7 @@ export default function BreakfastOrder({
                   {items.map((item) => (
                     <article
                       key={item.id}
-                      className="flex flex-col rounded-2xl bg-cream p-5 shadow-sm shadow-sand/40 transition-shadow hover:shadow-lg hover:shadow-sand/60"
+                      className="flex flex-col rounded-2xl border border-white/60 bg-white/70 p-5 shadow-sm shadow-cocoa/5 backdrop-blur-md transition-shadow hover:shadow-lg hover:shadow-cocoa/10"
                     >
                       <div className="flex items-start justify-between gap-3">
                         <h3 className="font-serif text-lg font-semibold text-cocoa">
@@ -343,7 +343,7 @@ export default function BreakfastOrder({
                                 },
                               }))
                             }
-                            className="w-full rounded-lg border border-sand bg-ivory px-3 py-2 text-sm outline-none focus:border-saffron"
+                            className="w-full rounded-lg border border-white/60 bg-white/70 px-3 py-2 text-sm outline-none backdrop-blur-sm focus:border-saffron"
                           >
                             {c.options.map((o) => (
                               <option key={o}>{o}</option>
@@ -389,7 +389,7 @@ export default function BreakfastOrder({
           initial={false}
           animate={{ y: isMobile && !cartOpen ? "100%" : 0 }}
           transition={{ type: "spring", damping: 30, stiffness: 300 }}
-          className={`fixed inset-x-0 bottom-0 z-50 max-h-[88svh] overflow-y-auto rounded-t-3xl bg-cream p-6 shadow-2xl lg:static lg:z-auto lg:max-h-none lg:overflow-visible lg:rounded-3xl lg:shadow-lg lg:shadow-sand/40 lg:sticky lg:top-24 ${
+          className={`fixed inset-x-0 bottom-0 z-50 max-h-[88svh] overflow-y-auto rounded-t-3xl border border-white/60 bg-white/85 p-6 shadow-2xl backdrop-blur-xl lg:static lg:z-auto lg:max-h-none lg:overflow-visible lg:rounded-3xl lg:shadow-lg lg:shadow-cocoa/5 lg:sticky lg:top-24 ${
             !isMobile || cartOpen ? "" : "pointer-events-none"
           }`}
           style={
@@ -494,7 +494,7 @@ export default function BreakfastOrder({
           {/* Pickup or delivery */}
           <div className="mt-6">
             <span className={label}>How would you like it?</span>
-            <div className="grid grid-cols-2 gap-2 rounded-full bg-ivory p-1">
+            <div className="grid grid-cols-2 gap-2 rounded-full border border-white/60 bg-white/60 p-1 backdrop-blur-sm">
               {(["pickup", "delivery"] as Fulfilment[]).map((f) => (
                 <button
                   key={f}
@@ -605,7 +605,7 @@ export default function BreakfastOrder({
                   />
 
                   {/* Exact pin — far more reliable than a written address for riders. */}
-                  <div className="mt-3 rounded-xl border border-sand bg-ivory p-3">
+                  <div className="mt-3 rounded-xl border border-white/60 bg-white/60 p-3 backdrop-blur-sm">
                     {pin ? (
                       <div className="flex items-start justify-between gap-3">
                         <div className="min-w-0">

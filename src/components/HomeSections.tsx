@@ -55,7 +55,7 @@ const morningPicks = [
 
 export function BreakfastBand() {
   return (
-    <section className="bg-cream py-24">
+    <section className="py-24">
       <div className="mx-auto grid max-w-content gap-12 px-5 lg:grid-cols-2 lg:items-center lg:px-8">
         <Reveal>
           <p className="text-xs uppercase tracking-[0.35em] text-saffron">
@@ -90,7 +90,7 @@ export function BreakfastBand() {
             {morningPicks.map((p) => (
               <li
                 key={p.name}
-                className="flex items-baseline justify-between gap-4 rounded-2xl bg-ivory px-5 py-4"
+                className="flex items-baseline justify-between gap-4 rounded-2xl border border-white/60 bg-white/70 px-5 py-4 backdrop-blur-md shadow-sm shadow-cocoa/5"
               >
                 <span className="font-serif text-lg text-cocoa">{p.name}</span>
                 <span className="flex-none font-serif text-lg text-saffron">
@@ -150,7 +150,7 @@ export function BuffetBand() {
             {sundayBuffet.includes.map((item) => (
               <li
                 key={item}
-                className="flex items-center gap-3 rounded-2xl bg-cream/5 px-5 py-4"
+                className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/10 px-5 py-4 backdrop-blur-sm"
               >
                 <span className="h-1.5 w-1.5 flex-none rounded-full bg-saffron-light" />
                 {item}
@@ -186,7 +186,7 @@ const experiences = [
 
 export function ExperiencesTeaser() {
   return (
-    <section className="bg-ivory py-24">
+    <section className="py-24">
       <div className="mx-auto max-w-content px-5 lg:px-8">
         <Reveal className="text-center">
           <p className="text-xs uppercase tracking-[0.35em] text-saffron">
@@ -201,7 +201,7 @@ export function ExperiencesTeaser() {
             <Reveal key={e.title} delay={i * 0.12}>
               <Link
                 href={e.href}
-                className={`block h-full rounded-3xl border-t-4 bg-cream p-8 shadow-lg shadow-sand/30 transition-transform hover:-translate-y-1.5 ${e.accent}`}
+                className={`block h-full rounded-3xl border-t-4 bg-white/70 p-8 shadow-lg shadow-cocoa/5 backdrop-blur-md transition-transform hover:-translate-y-1.5 ${e.accent}`}
               >
                 <h3 className="font-serif text-2xl font-semibold text-cocoa">
                   {e.title}
@@ -230,7 +230,7 @@ const gallery = [
 
 export function GalleryStrip() {
   return (
-    <section className="bg-cream py-24">
+    <section className="py-24">
       <div className="mx-auto max-w-content px-5 lg:px-8">
         <Reveal className="text-center">
           <p className="text-xs uppercase tracking-[0.35em] text-saffron">
@@ -266,7 +266,7 @@ export function GalleryStrip() {
 
 export function ContactCta() {
   return (
-    <section className="bg-ivory py-24">
+    <section className="py-24">
       <div className="mx-auto max-w-content px-5 lg:px-8">
         <Reveal className="text-center">
           <h2 className="font-serif text-4xl font-semibold text-leaf-deep sm:text-5xl">
@@ -300,14 +300,14 @@ export function ContactCta() {
         </Reveal>
 
         <Reveal delay={0.15}>
-          <div className="mt-12 overflow-hidden rounded-3xl border border-sand shadow-lg shadow-sand/40">
+          <div className="mt-12 overflow-hidden rounded-3xl border border-white/60 bg-white/50 p-1.5 shadow-lg shadow-cocoa/5 backdrop-blur-md">
             <iframe
               src={site.map.embed}
               title="Map showing The Curry Leaf in Lubowa, Kampala"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               allowFullScreen
-              className="h-80 w-full border-0 sm:h-96"
+              className="h-80 w-full rounded-2xl border-0 sm:h-96"
             />
           </div>
           <div className="mt-4 text-center">

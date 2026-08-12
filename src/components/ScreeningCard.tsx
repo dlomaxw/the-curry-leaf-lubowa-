@@ -31,7 +31,7 @@ export default function ScreeningCard({
 }) {
   return (
     <article
-      className={`overflow-hidden rounded-2xl bg-cream shadow-sm shadow-sand/40 transition-shadow hover:shadow-lg hover:shadow-sand/60 ${
+      className={`overflow-hidden rounded-2xl border border-white/60 bg-white/70 shadow-sm shadow-cocoa/5 backdrop-blur-md transition-shadow hover:shadow-lg hover:shadow-cocoa/10 ${
         isPast ? "opacity-60" : ""
       }`}
     >

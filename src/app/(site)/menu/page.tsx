@@ -14,7 +14,7 @@ export default async function MenuPage() {
   const dishes = await getMenuItems();
 
   return (
-    <div className="pt-24">
+    <div className="min-h-screen bg-white pt-24">
       <div className="mx-auto max-w-content px-5 pb-6 pt-10 text-center lg:px-8">
         <p className="text-xs uppercase tracking-[0.35em] text-saffron">
           All Prices Inclusive of VAT

@@ -46,7 +46,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="font-sans bg-ivory text-cocoa antialiased">
+      <body className="font-sans text-cocoa antialiased">
         {children}
       </body>
     </html>

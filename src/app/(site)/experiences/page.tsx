@@ -108,11 +108,11 @@ export default function ExperiencesPage() {
         </p>
       </div>
 
-      {sections.map((s, i) => (
+      {sections.map((s) => (
         <section
           key={s.id}
           id={s.id}
-          className={`scroll-mt-24 py-16 ${i % 2 === 1 ? "bg-cream" : ""}`}
+          className="scroll-mt-24 py-16"
         >
           <div className="mx-auto grid max-w-content gap-10 px-5 lg:grid-cols-2 lg:px-8">
             <Reveal>
@@ -137,7 +137,7 @@ export default function ExperiencesPage() {
               </div>
             </Reveal>
             <Reveal delay={0.15}>
-              <div className="rounded-3xl bg-ivory p-6 shadow-lg shadow-sand/40 sm:p-8">
+              <div className="rounded-3xl border border-white/60 bg-white/70 p-6 shadow-lg shadow-cocoa/5 backdrop-blur-xl sm:p-8">
                 <h3 className="font-serif text-2xl font-semibold text-leaf-deep">
                   Request a {s.title} Proposal
                 </h3>
