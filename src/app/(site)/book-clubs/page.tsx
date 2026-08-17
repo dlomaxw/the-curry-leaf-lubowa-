@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import FallingSpices from "@/components/FallingSpices";
+import BookClubCard from "@/components/BookClubCard";
 import {
   bookClubs,
   bookClubsIntro,
@@ -39,56 +40,7 @@ export default function BookClubsPage() {
         <div className="mt-16 grid gap-8 lg:grid-cols-2">
           {bookClubs.map((club, i) => (
             <Reveal key={club.id} delay={i * 0.1}>
-              <div className="h-full rounded-3xl border border-white/60 bg-white/70 p-8 shadow-lg shadow-cocoa/5 backdrop-blur-md">
-                <p className="text-3xl">{club.emoji}</p>
-                <h2 className="mt-3 font-serif text-2xl font-semibold text-leaf-deep">
-                  {club.name}
-                </h2>
-                <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-saffron">
-                  {club.frequency}
-                </p>
-                <p className="mt-4 text-sm leading-relaxed text-cocoa/70">
-                  {club.description}
-                </p>
-
-                <div className="mt-6 rounded-2xl border border-t-4 border-saffron/30 bg-saffron/[0.07] p-5">
-                  <p className="text-[0.65rem] font-semibold uppercase tracking-wider text-saffron">
-                    {club.currentRead.note}
-                  </p>
-                  <p className="mt-2 font-serif text-lg font-semibold text-cocoa">
-                    {club.currentRead.title}
-                    {club.currentRead.flag && (
-                      <span className="ml-2">{club.currentRead.flag}</span>
-                    )}
-                  </p>
-                  <p className="text-sm text-cocoa/60">
-                    by {club.currentRead.author}
-                  </p>
-                  <p className="mt-3 text-sm leading-relaxed text-cocoa/70">
-                    {club.currentRead.synopsis}
-                  </p>
-                </div>
-
-                {club.extraNote && (
-                  <p className="mt-5 text-sm leading-relaxed text-cocoa/60">
-                    {club.extraNote}
-                  </p>
-                )}
-
-                <div className="mt-6 space-y-1 border-t border-sand/60 pt-5 text-sm">
-                  <p className="text-cocoa/80">
-                    <span className="font-semibold text-cocoa">
-                      First meeting:
-                    </span>{" "}
-                    {club.firstMeeting}
-                    {club.meetingTime && ` · ${club.meetingTime}`}
-                  </p>
-                  <p className="text-cocoa/80">
-                    <span className="font-semibold text-cocoa">Where:</span>{" "}
-                    {club.location}
-                  </p>
-                </div>
-              </div>
+              <BookClubCard club={club} />
             </Reveal>
           ))}
         </div>

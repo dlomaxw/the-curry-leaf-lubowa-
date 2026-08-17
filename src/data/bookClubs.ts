@@ -20,6 +20,7 @@ export interface BookClubRead {
   flag?: string;
   note?: string;
   synopsis: string;
+  cover?: string;
 }
 
 export interface BookClub {
@@ -49,6 +50,7 @@ export const bookClubs: BookClub[] = [
       note: "Longlisted for the 2026 Booker Prize · September read",
       synopsis:
         "The novel follows Flora, who travels to Mexico City to visit relatives and, after an unexpected encounter, finds herself drawn into the strange world of an elderly German collector of pre-cinema objects.",
+      cover: "/images/Book/the-shadow-of-the-object.jpg",
     },
     firstMeeting: "Sunday, 27 September",
     location: "The Curry Leaf, Lubowa",
@@ -67,6 +69,7 @@ export const bookClubs: BookClub[] = [
       note: "Our first read · around 160 pages",
       synopsis:
         'It follows Keiko, a woman who has worked happily in the same Tokyo convenience store for 18 years, while the people around her seem determined to tell her what a "normal" life should look like. Funny, strange and thought-provoking, it raises fascinating questions about identity, belonging, work, relationships, social expectations and the pressure to fit in.',
+      cover: "/images/Book/convenience-store-woman.jpg",
     },
     firstMeeting: "Thursday, 17 September",
     meetingTime: "6:30 – 8:30 PM",
