@@ -24,6 +24,77 @@ export interface BarCategory {
   note?: string;
 }
 
+export interface BarOffer {
+  name: string;
+  includes: string;
+  priceLabel: string;
+}
+
+export const barOffers: BarOffer[] = [
+  {
+    name: "Beer & Curry",
+    includes: "Chicken Curry or Dal + rice or naan + selected beer",
+    priceLabel: "UGX 35,000",
+  },
+  {
+    name: "Match Bucket",
+    includes: "5 selected beers for the price of 4",
+    priceLabel: "UGX 40,000–48,000 depending on beer",
+  },
+  {
+    name: "Match Platter",
+    includes:
+      "Indian Tapas for 2–3: Chicken Tikka, Chicken Lollipops, Samosas, Onion Bhaji, Okra Fries + chutneys",
+    priceLabel: "UGX 65,000",
+  },
+  {
+    name: "Happy Hour",
+    includes: "Buy One Get One Free on selected cocktails and drinks",
+    priceLabel: "6:00–8:00pm",
+  },
+];
+
+export interface BarScheduleRow {
+  date: string;
+  day: string;
+  time: string;
+  event: string;
+  offer: string;
+  isQuiz?: boolean;
+  isBigMatch?: boolean;
+}
+
+// Live sports & events schedule, with the matching Bombay Adda offer for that slot.
+export const barSchedule: BarScheduleRow[] = [
+  { date: "21 Aug", day: "Fri", time: "10:00pm", event: "Arsenal v Coventry", offer: "Beer + Curry" },
+  { date: "22 Aug", day: "Sat", time: "2:30pm", event: "Hull v Man United", offer: "Beer Bucket + Match Platter" },
+  { date: "22 Aug", day: "Sat", time: "7:30pm", event: "Brentford v Spurs", offer: "Beer Bucket + Match Platter" },
+  { date: "23 Aug", day: "Sun", time: "4:00pm", event: "Man City v Bournemouth", offer: "Beer + Curry" },
+  { date: "23 Aug", day: "Sun", time: "6:30pm", event: "Newcastle v Liverpool", offer: "Beer Bucket + Match Platter" },
+  { date: "24 Aug", day: "Mon", time: "10:00pm", event: "Fulham v Chelsea", offer: "Beer + Curry" },
+  { date: "26 Aug", day: "Wed", time: "7:30pm", event: "Bombay Adda Quiz Night", offer: "Happy Hour + Quiz Prizes", isQuiz: true },
+  { date: "28 Aug", day: "Fri", time: "10:00pm", event: "Crystal Palace v Man City", offer: "Beer + Curry" },
+  { date: "29 Aug", day: "Sat", time: "2:30pm", event: "Liverpool v Nottingham Forest", offer: "Beer Bucket + Match Platter" },
+  { date: "29 Aug", day: "Sat", time: "7:30pm", event: "Spurs v Newcastle", offer: "Beer Bucket + Match Platter" },
+  { date: "30 Aug", day: "Sun", time: "4:00pm", event: "Chelsea v Brighton", offer: "Beer + Curry" },
+  { date: "30 Aug", day: "Sun", time: "6:30pm", event: "Man United v Ipswich", offer: "Beer Bucket + Match Platter" },
+  { date: "31 Aug", day: "Mon", time: "10:00pm", event: "Aston Villa v Arsenal", offer: "Beer + Curry" },
+  { date: "2 Sep", day: "Wed", time: "7:30pm", event: "Bombay Adda Quiz Night", offer: "Happy Hour + Quiz Prizes", isQuiz: true },
+  { date: "4 Sep", day: "Fri", time: "10:00pm", event: "Ipswich v Liverpool", offer: "Beer + Curry" },
+  { date: "6 Sep", day: "Sun", time: "4:00pm", event: "Everton v Man United", offer: "Beer Bucket + Match Platter" },
+  { date: "6 Sep", day: "Sun", time: "6:30pm", event: "Arsenal v Chelsea", offer: "Big Match Special", isBigMatch: true },
+  { date: "9 Sep", day: "Wed", time: "7:30pm", event: "Bombay Adda Quiz Night", offer: "Happy Hour + Quiz Prizes", isQuiz: true },
+  { date: "12 Sep", day: "Sat", time: "5:00pm", event: "Liverpool v Fulham", offer: "Beer Bucket + Match Platter" },
+  { date: "13 Sep", day: "Sun", time: "6:30pm", event: "Man United v Man City – Derby", offer: "Big Match Special", isBigMatch: true },
+  { date: "16 Sep", day: "Wed", time: "7:30pm", event: "Bombay Adda Quiz Night", offer: "Happy Hour + Quiz Prizes", isQuiz: true },
+  { date: "18 Sep", day: "Fri", time: "10:00pm", event: "Brentford v Chelsea", offer: "Beer + Curry" },
+  { date: "19 Sep", day: "Sat", time: "2:30pm", event: "Spurs v Aston Villa", offer: "Beer Bucket + Match Platter" },
+  { date: "19 Sep", day: "Sat", time: "5:00pm", event: "Brighton v Arsenal", offer: "Beer + Curry" },
+  { date: "20 Sep", day: "Sun", time: "4:00pm", event: "Bournemouth v Liverpool", offer: "Beer Bucket + Match Platter" },
+  { date: "20 Sep", day: "Sun", time: "6:30pm", event: "Fulham v Man United", offer: "Beer + Curry" },
+  { date: "23 Sep", day: "Wed", time: "7:30pm", event: "Bombay Adda Quiz Night", offer: "Happy Hour + Quiz Prizes", isQuiz: true },
+];
+
 export const barCategories: BarCategory[] = [
   {
     id: "signature-cocktails",

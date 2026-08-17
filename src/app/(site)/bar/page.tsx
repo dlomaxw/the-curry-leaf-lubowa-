@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { barCategories } from "@/data/bar";
+import { barCategories, barOffers, barSchedule } from "@/data/bar";
 import { whatsappLink } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -67,6 +67,100 @@ export default function BarPage() {
               Reserve a Table
             </Link>
           </div>
+        </div>
+      </div>
+
+      {/* Offers */}
+      <div className="mx-auto max-w-content px-5 pt-14 lg:px-8">
+        <div className="flex items-center gap-4">
+          <h2 className="font-serif text-3xl font-semibold text-leaf-deep">
+            Bombay Adda Offers
+          </h2>
+          <div className="h-px flex-1 bg-sand" />
+        </div>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          {barOffers.map((o) => (
+            <div
+              key={o.name}
+              className="rounded-2xl border border-t-4 border-saffron/30 bg-saffron/[0.07] p-6 shadow-sm shadow-saffron/10"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <h3 className="font-serif text-xl font-semibold text-cocoa">
+                  {o.name}
+                </h3>
+                <p className="flex-none whitespace-nowrap font-serif text-base text-saffron">
+                  {o.priceLabel}
+                </p>
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-cocoa/65">
+                {o.includes}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Match & events schedule */}
+      <div className="mx-auto max-w-content px-5 pt-14 lg:px-8">
+        <div className="flex items-center gap-4">
+          <h2 className="font-serif text-3xl font-semibold text-leaf-deep">
+            What&apos;s On at Bombay Adda
+          </h2>
+          <div className="h-px flex-1 bg-sand" />
+        </div>
+        <p className="mt-2 text-sm text-cocoa/60">
+          Live football, quiz nights and big-match specials — every offer
+          below applies on the day shown.
+        </p>
+        <div className="mt-6 overflow-x-auto rounded-2xl border border-saffron/30 bg-saffron/[0.07] shadow-sm shadow-saffron/10">
+          <table className="w-full min-w-[640px] text-left text-sm">
+            <thead>
+              <tr className="border-b border-saffron/20 text-xs uppercase tracking-wider text-cocoa/50">
+                <th className="px-5 py-3 font-semibold">Date</th>
+                <th className="px-5 py-3 font-semibold">Day</th>
+                <th className="px-5 py-3 font-semibold">Time</th>
+                <th className="px-5 py-3 font-semibold">Match / Event</th>
+                <th className="px-5 py-3 font-semibold">Bombay Adda Offer</th>
+              </tr>
+            </thead>
+            <tbody>
+              {barSchedule.map((row, i) => (
+                <tr
+                  key={`${row.date}-${row.time}-${i}`}
+                  className="border-b border-saffron/10 last:border-b-0"
+                >
+                  <td className="whitespace-nowrap px-5 py-3 text-cocoa/80">
+                    {row.date}
+                  </td>
+                  <td className="whitespace-nowrap px-5 py-3 text-cocoa/80">
+                    {row.day}
+                  </td>
+                  <td className="whitespace-nowrap px-5 py-3 text-cocoa/80">
+                    {row.time}
+                  </td>
+                  <td
+                    className={`px-5 py-3 ${
+                      row.isBigMatch
+                        ? "font-semibold text-cocoa"
+                        : "text-cocoa/80"
+                    }`}
+                  >
+                    {row.isQuiz ? "🍹 " : "⚽ "}
+                    {row.event}
+                  </td>
+                  <td
+                    className={`whitespace-nowrap px-5 py-3 ${
+                      row.isBigMatch
+                        ? "font-semibold text-saffron"
+                        : "text-saffron/90"
+                    }`}
+                  >
+                    {row.offer}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
 
