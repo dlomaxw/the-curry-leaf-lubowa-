@@ -13,6 +13,7 @@ const links = [
   { href: "/breakfast", label: "Breakfast" },
   { href: "/reservations", label: "Reservations" },
   { href: "/film-festival", label: "Film Festival" },
+  { href: "/book-clubs", label: "Book Clubs" },
   { href: "/experiences", label: "Experiences" },
   { href: "/about", label: "About Us" },
   { href: "/contact", label: "Contact" },
