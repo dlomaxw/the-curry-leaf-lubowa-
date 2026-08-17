@@ -1,0 +1,166 @@
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { barCategories } from "@/data/bar";
+import { whatsappLink } from "@/data/site";
+
+export const metadata: Metadata = {
+  title: "Bombay Adda Bar — Cocktails & Drinks | The Curry Leaf, Lubowa",
+  description:
+    "Bombay Adda — our bar at The Curry Leaf, Lubowa. Crafted cocktails, premium spirits, wine, beers and fresh flavours. Bar · Bites · Buzz.",
+};
+
+function formatUGX(n: number) {
+  return `UGX ${n.toLocaleString("en-UG")}`;
+}
+
+export default function BarPage() {
+  return (
+    <div className="pt-24">
+      {/* Hero */}
+      <div className="relative overflow-hidden bg-cocoa">
+        <Image
+          src="/images/bar/hero-cocktail.png"
+          alt=""
+          fill
+          priority
+          className="object-cover opacity-50"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-cocoa/60 via-cocoa/70 to-cocoa" />
+        <div className="relative mx-auto flex max-w-content flex-col items-center px-5 py-20 text-center lg:px-8">
+          <Image
+            src="/images/bombay-adda-logo.png"
+            alt="Bombay Adda — Bar · Bites · Buzz"
+            width={220}
+            height={220}
+            priority
+            className="h-32 w-32 drop-shadow-[0_8px_30px_rgba(0,0,0,0.5)] sm:h-40 sm:w-40"
+          />
+          <p className="mt-6 text-xs uppercase tracking-[0.4em] text-saffron-light">
+            The Curry Leaf&apos;s Bar
+          </p>
+          <h1 className="mt-3 font-serif text-5xl font-semibold text-cream sm:text-6xl">
+            Bombay Adda
+          </h1>
+          <p className="mt-2 font-serif text-xl text-saffron-light sm:text-2xl">
+            Bar · Bites · Buzz
+          </p>
+          <p className="mx-auto mt-5 max-w-xl text-cream/80">
+            Crafted cocktails, premium spirits and fresh flavours — the bar
+            that sits right alongside your table at The Curry Leaf.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            <a
+              href={whatsappLink(
+                "Hello Bombay Adda! I'd like to know more about the bar.",
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full bg-saffron px-8 py-3.5 font-semibold text-cocoa transition-transform hover:scale-105 hover:bg-saffron-light"
+            >
+              Message Us on WhatsApp
+            </a>
+            <Link
+              href="/reservations"
+              className="rounded-full border border-cream/40 px-8 py-3.5 font-semibold text-cream transition-colors hover:border-saffron-light hover:text-saffron-light"
+            >
+              Reserve a Table
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Quick category jump */}
+      <div className="sticky top-[68px] z-30 border-b border-sand/50 bg-white/95 px-5 py-3 backdrop-blur-md lg:px-8">
+        <div className="mx-auto flex max-w-content gap-2 overflow-x-auto">
+          {barCategories.map((c) => (
+            <a
+              key={c.id}
+              href={`#${c.id}`}
+              className="flex-none rounded-full border border-sand/60 bg-white px-4 py-2 text-xs font-semibold text-cocoa/70 transition-colors hover:border-saffron/60 hover:text-saffron"
+            >
+              {c.label}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-content px-5 pb-24 lg:px-8">
+        {barCategories.map((cat) => (
+          <section key={cat.id} id={cat.id} className="scroll-mt-32 pt-14">
+            <div className="flex items-center gap-4">
+              <h2 className="font-serif text-3xl font-semibold text-leaf-deep">
+                {cat.label}
+              </h2>
+              <div className="h-px flex-1 bg-sand" />
+            </div>
+            {cat.note && (
+              <p className="mt-2 text-xs uppercase tracking-wider text-cocoa/50">
+                {cat.note}
+              </p>
+            )}
+
+            {cat.items && (
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                {cat.items.map((d) => (
+                  <div
+                    key={d.name}
+                    className="rounded-2xl border border-t-4 border-saffron/30 bg-saffron/[0.07] p-6 shadow-sm shadow-saffron/10"
+                  >
+                    <div className="flex items-start justify-between gap-4">
+                      <h3 className="font-serif text-xl font-semibold text-cocoa">
+                        {d.name}
+                      </h3>
+                      <p className="flex-none whitespace-nowrap font-serif text-lg text-saffron">
+                        {d.price !== undefined ? formatUGX(d.price) : d.priceLabel}
+                      </p>
+                    </div>
+                    {d.description && (
+                      <p className="mt-2 text-sm leading-relaxed text-cocoa/65">
+                        {d.description}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {cat.subcategories && (
+              <div className="mt-6 space-y-8">
+                {cat.subcategories.map((sub) => (
+                  <div key={sub.label}>
+                    <h3 className="text-xs font-semibold uppercase tracking-[0.25em] text-saffron">
+                      {sub.label}
+                    </h3>
+                    <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                      {sub.items.map((d) => (
+                        <div
+                          key={d.name}
+                          className="rounded-2xl border border-t-4 border-saffron/30 bg-saffron/[0.07] p-6 shadow-sm shadow-saffron/10"
+                        >
+                          <div className="flex items-start justify-between gap-4">
+                            <h3 className="font-serif text-xl font-semibold text-cocoa">
+                              {d.name}
+                            </h3>
+                            <p className="flex-none whitespace-nowrap font-serif text-base text-saffron">
+                              {d.price !== undefined ? formatUGX(d.price) : d.priceLabel}
+                            </p>
+                          </div>
+                          {d.description && (
+                            <p className="mt-2 text-sm leading-relaxed text-cocoa/65">
+                              {d.description}
+                            </p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+        ))}
+      </div>
+    </div>
+  );
+}

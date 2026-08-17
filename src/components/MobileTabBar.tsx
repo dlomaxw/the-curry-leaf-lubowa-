@@ -59,6 +59,7 @@ const tabs = [
 ];
 
 const moreLinks = [
+  { href: "/bar", label: "Bombay Adda Bar" },
   { href: "/film-festival", label: "Film Festival" },
   { href: "/experiences", label: "Experiences" },
   { href: "/about", label: "About Us" },

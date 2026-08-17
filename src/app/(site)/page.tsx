@@ -3,6 +3,7 @@ import FeatureIcons from "@/components/FeatureIcons";
 import MenuShowcase from "@/components/MenuShowcase";
 import {
   FilmFestivalBand,
+  BarBand,
   BreakfastBand,
   BuffetBand,
   ExperiencesTeaser,
@@ -22,6 +23,7 @@ export default async function Home() {
       <FilmFestivalBand />
       <FeatureIcons />
       <MenuShowcase dishes={dishes} />
+      <BarBand />
       <BreakfastBand />
       <BuffetBand />
       <ExperiencesTeaser />

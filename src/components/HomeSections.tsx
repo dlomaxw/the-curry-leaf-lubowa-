@@ -46,6 +46,51 @@ export function FilmFestivalBand() {
   );
 }
 
+export function BarBand() {
+  return (
+    <section className="relative overflow-hidden bg-cocoa py-20 text-cream">
+      <Image
+        src="/images/bar/hero-cocktail.png"
+        alt=""
+        fill
+        className="object-cover opacity-30"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-cocoa/70 via-cocoa/60 to-cocoa" />
+      <div className="relative mx-auto grid max-w-content items-center gap-10 px-5 lg:grid-cols-[auto_1fr] lg:gap-14 lg:px-8">
+        <Reveal className="flex justify-center lg:justify-start">
+          <Image
+            src="/images/bombay-adda-logo.png"
+            alt="Bombay Adda — Bar · Bites · Buzz"
+            width={200}
+            height={200}
+            className="h-32 w-32 drop-shadow-[0_8px_30px_rgba(0,0,0,0.5)] sm:h-40 sm:w-40"
+          />
+        </Reveal>
+
+        <Reveal delay={0.1} className="text-center lg:text-left">
+          <p className="text-xs uppercase tracking-[0.35em] text-saffron-light">
+            We Also Have a Bar
+          </p>
+          <h2 className="mt-3 font-serif text-4xl font-semibold sm:text-5xl">
+            Bombay Adda — Bar · Bites · Buzz
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-cream/75 lg:mx-0">
+            Crafted cocktails, premium spirits, wine and fresh flavours —
+            right alongside your table. Signature margaritas, espresso
+            martinis, mocktails and more.
+          </p>
+          <Link
+            href="/bar"
+            className="mt-7 inline-block rounded-full bg-saffron px-8 py-3.5 font-semibold text-cocoa transition-transform hover:scale-105 hover:bg-saffron-light"
+          >
+            <SpinText text="Explore the Bar Menu" />
+          </Link>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
 const morningPicks = [
   { name: "The Kampala Breakfast", price: 42000 },
   { name: "Bombay Rolex", price: 20000 },
