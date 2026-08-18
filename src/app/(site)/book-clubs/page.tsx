@@ -3,6 +3,7 @@ import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import FallingSpices from "@/components/FallingSpices";
 import BookClubCard from "@/components/BookClubCard";
+import Carousel from "@/components/Carousel";
 import {
   bookClubs,
   bookClubsIntro,
@@ -37,12 +38,12 @@ export default function BookClubsPage() {
           </p>
         </Reveal>
 
-        <div className="mt-16 grid gap-8 lg:grid-cols-2">
-          {bookClubs.map((club, i) => (
-            <Reveal key={club.id} delay={i * 0.1}>
-              <BookClubCard club={club} />
-            </Reveal>
-          ))}
+        <div className="mt-20">
+          <Carousel cardWidthClass="w-[21rem] sm:w-[26rem]">
+            {bookClubs.map((club) => (
+              <BookClubCard key={club.id} club={club} />
+            ))}
+          </Carousel>
         </div>
 
         <Reveal className="mx-auto mt-16 max-w-2xl text-center">

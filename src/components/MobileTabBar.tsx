@@ -60,8 +60,7 @@ const tabs = [
 
 const moreLinks = [
   { href: "/bar", label: "Bombay Adda Bar" },
-  { href: "/film-festival", label: "Film Festival" },
-  { href: "/book-clubs", label: "Book Clubs" },
+  { href: "/events", label: "Events" },
   { href: "/experiences", label: "Experiences" },
   { href: "/about", label: "About Us" },
   { href: "/contact", label: "Contact" },

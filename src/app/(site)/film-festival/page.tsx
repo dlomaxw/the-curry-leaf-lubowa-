@@ -5,6 +5,7 @@ import { whatsappLink } from "@/data/site";
 import ScreeningCard from "@/components/ScreeningCard";
 import Reveal from "@/components/Reveal";
 import FestivalFabricBackdrop from "@/components/FestivalFabricBackdrop";
+import Carousel from "@/components/Carousel";
 
 export const metadata: Metadata = {
   title: "Indian Film Festival — The Curry Leaf, Lubowa",
@@ -114,16 +115,17 @@ export default function FilmFestivalPage() {
               </div>
             </Reveal>
 
-            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {weekend.screenings.map((screening, si) => (
-                <Reveal key={screening.id} delay={si * 0.08}>
+            <div className="mt-10">
+              <Carousel cardWidthClass="w-80 sm:w-96">
+                {weekend.screenings.map((screening) => (
                   <ScreeningCard
+                    key={screening.id}
                     screening={screening}
                     isNext={next?.id === screening.id}
                     isPast={isPast(screening)}
                   />
-                </Reveal>
-              ))}
+                ))}
+              </Carousel>
             </div>
           </section>
         ))}
