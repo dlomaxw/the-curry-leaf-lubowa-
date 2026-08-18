@@ -3,7 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { barOffers, barSchedule } from "@/data/bar";
 import { whatsappLink } from "@/data/site";
-import { getBarItems } from "@/lib/data/bar";
+import { getBarItems, type BarItemRow } from "@/lib/data/bar";
+import JsonLd from "@/components/JsonLd";
 
 export const metadata: Metadata = {
   title: "Bombay Adda Bar — Cocktails & Drinks | The Curry Leaf, Lubowa",
@@ -17,11 +18,45 @@ function formatUGX(n: number) {
   return `UGX ${n.toLocaleString("en-UG")}`;
 }
 
+function toMenuItem(d: BarItemRow) {
+  return {
+    "@type": "MenuItem",
+    name: d.name,
+    description: d.priceLabel
+      ? [d.description, d.priceLabel].filter(Boolean).join(" — ")
+      : d.description,
+    ...(d.price !== undefined
+      ? { offers: { "@type": "Offer", price: d.price, priceCurrency: "UGX" } }
+      : {}),
+  };
+}
+
 export default async function BarPage() {
   const barCategories = await getBarItems();
 
+  const menuJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Menu",
+    name: "Bombay Adda — Drinks Menu",
+    hasMenuSection: barCategories.map((c) => ({
+      "@type": "MenuSection",
+      name: c.label,
+      ...(c.items ? { hasMenuItem: c.items.map(toMenuItem) } : {}),
+      ...(c.subcategories
+        ? {
+            hasMenuSection: c.subcategories.map((sub) => ({
+              "@type": "MenuSection",
+              name: sub.label,
+              hasMenuItem: sub.items.map(toMenuItem),
+            })),
+          }
+        : {}),
+    })),
+  };
+
   return (
     <div className="pt-24">
+      <JsonLd data={menuJsonLd} />
       {/* Hero */}
       <div className="relative overflow-hidden bg-cocoa">
         <Image

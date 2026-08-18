@@ -1,6 +1,56 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
+import JsonLd from "@/components/JsonLd";
+import { site } from "@/data/site";
 import "./globals.css";
+
+const DAYS = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+];
+
+const restaurantJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "@id": "https://thecurryleaf.ug/#restaurant",
+  name: site.name,
+  description:
+    "Experience authentic Indian flavours, premium hospitality and unforgettable dining at The Curry Leaf, Lubowa, Kampala.",
+  url: "https://thecurryleaf.ug",
+  telephone: site.phoneHref,
+  image: "https://thecurryleaf.ug/images/logo-dark.webp",
+  servesCuisine: ["Indian"],
+  priceRange: "UGX 10,000–130,000",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Off Entebbe Road",
+    addressLocality: "Lubowa, Kampala",
+    addressCountry: "UG",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: site.map.lat,
+    longitude: site.map.lng,
+  },
+  hasMap: site.map.link,
+  menu: "https://thecurryleaf.ug/menu",
+  acceptsReservations: "True",
+  openingHoursSpecification: [
+    { opens: "07:00", closes: "11:00" },
+    { opens: "12:00", closes: "15:00" },
+    { opens: "18:00", closes: "22:30" },
+  ].map((w) => ({
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: DAYS,
+    opens: w.opens,
+    closes: w.closes,
+  })),
+};
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -35,6 +85,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <JsonLd data={restaurantJsonLd} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"

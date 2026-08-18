@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import MenuBrowser from "@/components/MenuBrowser";
+import JsonLd from "@/components/JsonLd";
 import { getMenuItems } from "@/lib/data/menu";
+import { categories } from "@/data/menu";
 
 export const metadata: Metadata = {
   title: "Menu — The Curry Leaf, Lubowa",
@@ -13,8 +15,39 @@ export const revalidate = 60;
 export default async function MenuPage() {
   const dishes = await getMenuItems();
 
+  const menuJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Menu",
+    name: "The Curry Leaf — Launch Menu",
+    hasMenuSection: categories
+      .map((c) => ({
+        "@type": "MenuSection",
+        name: c.label,
+        hasMenuItem: dishes
+          .filter((d) => d.category === c.id)
+          .map((d) => ({
+            "@type": "MenuItem",
+            name: d.name,
+            description: d.description,
+            offers: {
+              "@type": "Offer",
+              price: d.price,
+              priceCurrency: "UGX",
+            },
+            suitableForDiet:
+              d.dietary === "vegan"
+                ? "https://schema.org/VeganDiet"
+                : d.dietary === "veg"
+                  ? "https://schema.org/VegetarianDiet"
+                  : undefined,
+          })),
+      }))
+      .filter((s) => s.hasMenuItem.length > 0),
+  };
+
   return (
     <div className="min-h-screen bg-white pt-24">
+      <JsonLd data={menuJsonLd} />
       <div className="mx-auto max-w-content px-5 pb-6 pt-10 text-center lg:px-8">
         <p className="text-xs uppercase tracking-[0.35em] text-saffron">
           All Prices Inclusive of VAT
