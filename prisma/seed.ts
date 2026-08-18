@@ -2,6 +2,7 @@ import { PrismaClient, Dietary } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { dishes } from "../src/data/menu";
 import { breakfastItems } from "../src/data/breakfast";
+import { barCategories } from "../src/data/bar";
 
 const prisma = new PrismaClient();
 
@@ -55,6 +56,39 @@ async function main() {
         sortOrder: i,
       },
     });
+  }
+
+  console.log("Seeding bar items...");
+  const slugify = (s: string) =>
+    s
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "");
+  let barSort = 0;
+  for (const cat of barCategories) {
+    const rows = cat.subcategories
+      ? cat.subcategories.flatMap((sub) =>
+          sub.items.map((item) => ({ ...item, subcategory: sub.label })),
+        )
+      : (cat.items ?? []).map((item) => ({ ...item, subcategory: null as string | null }));
+
+    for (const item of rows) {
+      const id = `bar-${slugify(cat.id)}-${slugify(item.subcategory ?? "")}-${slugify(item.name)}`;
+      await prisma.barItem.upsert({
+        where: { id },
+        update: {},
+        create: {
+          id,
+          category: cat.id,
+          subcategory: item.subcategory,
+          name: item.name,
+          price: item.price ?? null,
+          priceLabel: item.priceLabel ?? null,
+          description: item.description ?? null,
+          sortOrder: barSort++,
+        },
+      });
+    }
   }
 
   const adminEmail = "admin@thecurryleaf.ug";

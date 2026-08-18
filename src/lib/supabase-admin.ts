@@ -9,3 +9,5 @@ export const supabaseAdmin = createClient(
 );
 
 export const DISH_IMAGES_BUCKET = "dish-images";
+// Same bucket, kept separate by upload path (bar/... vs dishes/...).
+export const BAR_IMAGES_BUCKET = "dish-images";

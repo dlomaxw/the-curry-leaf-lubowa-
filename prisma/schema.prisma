@@ -65,6 +65,23 @@ model BreakfastItem {
   updatedAt   DateTime @updatedAt
 }
 
+model BarItem {
+  id          String   @id @default(cuid())
+  category    String
+  subcategory String?
+  name        String
+  /** Simple single price, in UGX. Leave blank when using priceLabel instead. */
+  price       Int?
+  /** Free-form pricing for glass/bottle, single/double, or a range. */
+  priceLabel  String?
+  description String?
+  image       String?
+  available   Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 enum ReservationStatus {
   RECEIVED
   CONFIRMED

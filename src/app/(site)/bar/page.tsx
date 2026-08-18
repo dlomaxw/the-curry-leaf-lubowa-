@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { barCategories, barOffers, barSchedule } from "@/data/bar";
+import { barOffers, barSchedule } from "@/data/bar";
 import { whatsappLink } from "@/data/site";
+import { getBarItems } from "@/lib/data/bar";
 
 export const metadata: Metadata = {
   title: "Bombay Adda Bar — Cocktails & Drinks | The Curry Leaf, Lubowa",
@@ -10,11 +11,15 @@ export const metadata: Metadata = {
     "Bombay Adda — our bar at The Curry Leaf, Lubowa. Crafted cocktails, premium spirits, wine, beers and fresh flavours. Bar · Bites · Buzz.",
 };
 
+export const revalidate = 60;
+
 function formatUGX(n: number) {
   return `UGX ${n.toLocaleString("en-UG")}`;
 }
 
-export default function BarPage() {
+export default async function BarPage() {
+  const barCategories = await getBarItems();
+
   return (
     <div className="pt-24">
       {/* Hero */}
@@ -198,22 +203,36 @@ export default function BarPage() {
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
                 {cat.items.map((d) => (
                   <div
-                    key={d.name}
-                    className="rounded-2xl border border-t-4 border-saffron/30 bg-saffron/[0.07] p-6 shadow-sm shadow-saffron/10"
+                    key={d.id}
+                    className="flex gap-4 rounded-2xl border border-t-4 border-saffron/30 bg-saffron/[0.07] p-6 shadow-sm shadow-saffron/10"
                   >
-                    <div className="flex items-start justify-between gap-4">
-                      <h3 className="font-serif text-xl font-semibold text-cocoa">
-                        {d.name}
-                      </h3>
-                      <p className="flex-none whitespace-nowrap font-serif text-lg text-saffron">
-                        {d.price !== undefined ? formatUGX(d.price) : d.priceLabel}
-                      </p>
-                    </div>
-                    {d.description && (
-                      <p className="mt-2 text-sm leading-relaxed text-cocoa/65">
-                        {d.description}
-                      </p>
+                    {d.image && (
+                      <div className="relative h-16 w-16 flex-none overflow-hidden rounded-xl shadow-sm shadow-cocoa/15">
+                        <Image
+                          src={d.image}
+                          alt={d.name}
+                          fill
+                          sizes="4rem"
+                          className="object-cover"
+                          unoptimized={!d.image.startsWith("/")}
+                        />
+                      </div>
                     )}
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-start justify-between gap-4">
+                        <h3 className="font-serif text-xl font-semibold text-cocoa">
+                          {d.name}
+                        </h3>
+                        <p className="flex-none whitespace-nowrap font-serif text-lg text-saffron">
+                          {d.price !== undefined ? formatUGX(d.price) : d.priceLabel}
+                        </p>
+                      </div>
+                      {d.description && (
+                        <p className="mt-2 text-sm leading-relaxed text-cocoa/65">
+                          {d.description}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -229,22 +248,36 @@ export default function BarPage() {
                     <div className="mt-4 grid gap-4 sm:grid-cols-2">
                       {sub.items.map((d) => (
                         <div
-                          key={d.name}
-                          className="rounded-2xl border border-t-4 border-saffron/30 bg-saffron/[0.07] p-6 shadow-sm shadow-saffron/10"
+                          key={d.id}
+                          className="flex gap-4 rounded-2xl border border-t-4 border-saffron/30 bg-saffron/[0.07] p-6 shadow-sm shadow-saffron/10"
                         >
-                          <div className="flex items-start justify-between gap-4">
-                            <h3 className="font-serif text-xl font-semibold text-cocoa">
-                              {d.name}
-                            </h3>
-                            <p className="flex-none whitespace-nowrap font-serif text-base text-saffron">
-                              {d.price !== undefined ? formatUGX(d.price) : d.priceLabel}
-                            </p>
-                          </div>
-                          {d.description && (
-                            <p className="mt-2 text-sm leading-relaxed text-cocoa/65">
-                              {d.description}
-                            </p>
+                          {d.image && (
+                            <div className="relative h-16 w-16 flex-none overflow-hidden rounded-xl shadow-sm shadow-cocoa/15">
+                              <Image
+                                src={d.image}
+                                alt={d.name}
+                                fill
+                                sizes="4rem"
+                                className="object-cover"
+                                unoptimized={!d.image.startsWith("/")}
+                              />
+                            </div>
                           )}
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-start justify-between gap-4">
+                              <h3 className="font-serif text-xl font-semibold text-cocoa">
+                                {d.name}
+                              </h3>
+                              <p className="flex-none whitespace-nowrap font-serif text-base text-saffron">
+                                {d.price !== undefined ? formatUGX(d.price) : d.priceLabel}
+                              </p>
+                            </div>
+                            {d.description && (
+                              <p className="mt-2 text-sm leading-relaxed text-cocoa/65">
+                                {d.description}
+                              </p>
+                            )}
+                          </div>
                         </div>
                       ))}
                     </div>
