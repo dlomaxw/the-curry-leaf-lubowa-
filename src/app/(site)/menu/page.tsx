@@ -5,9 +5,19 @@ import { getMenuItems } from "@/lib/data/menu";
 import { categories } from "@/data/menu";
 
 export const metadata: Metadata = {
-  title: "Menu — The Curry Leaf, Lubowa",
+  title: "Indian Menu — South Indian & Popular Indian Dishes | The Curry Leaf, Lubowa",
   description:
-    "Browse the full Curry Leaf launch menu: tandoori appetisers, butter chicken, biryani, vegetarian curries, tandoor breads, thali lunches and desserts. All prices inclusive of VAT.",
+    "Browse the full Curry Leaf menu — south Indian dishes and popular Indian dishes alike, from tandoori appetisers and butter chicken to biryani, vegetarian curries, tandoor breads and thali lunches. Tasty, traditional Indian food — order Indian food online. All prices inclusive of VAT.",
+  keywords: [
+    "indian dishes",
+    "south indian dishes",
+    "south indian meals",
+    "popular indian dishes",
+    "tasty indian food",
+    "order indian food online",
+    "indian traditional food",
+    "indian delicacy",
+  ],
 };
 
 export const revalidate = 60;

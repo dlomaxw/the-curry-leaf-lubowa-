@@ -65,6 +65,14 @@ export const metadata: Metadata = {
   title: "The Curry Leaf — Indian Kitchen & Social House, Lubowa",
   description:
     "Experience authentic Indian flavours, premium hospitality and unforgettable dining at The Curry Leaf, Lubowa, Kampala. Thali lunches, tandoor specialities, biryani and the Sunday Grand Buffet.",
+  keywords: [
+    "indian food close to me",
+    "indian meals",
+    "south indian food",
+    "indian kitchen",
+    "indian food near me",
+    "south indian meals",
+  ],
   openGraph: {
     title: "The Curry Leaf — Indian Kitchen & Social House",
     description:

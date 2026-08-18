@@ -6,9 +6,16 @@ import { getBreakfastItems } from "@/lib/data/breakfast";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Breakfast Ordering — Bombay Adda at The Curry Leaf, Lubowa",
+  title: "Order Indian Food Online — Breakfast & Curry Takeaway | Bombay Adda, Lubowa",
   description:
-    "Order breakfast for pickup or delivery in Lubowa and Kampala. The Kampala Breakfast, Bombay Rolex, shakshuka, parathas, baps, wraps and grab & go combos from Bombay Adda.",
+    "Order Indian food online for pickup or delivery in Lubowa and Kampala — fast Indian food near me delivery and curry takeaway near me from Bombay Adda. The Kampala Breakfast, Bombay Rolex, shakshuka, parathas, baps, wraps and grab & go combos.",
+  keywords: [
+    "indian food near me delivery",
+    "curry takeaway near me",
+    "order indian food online",
+    "food india",
+    "food indian",
+  ],
 };
 
 const highlights = [

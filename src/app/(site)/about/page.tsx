@@ -5,9 +5,17 @@ import Reveal from "@/components/Reveal";
 import FallingSpices from "@/components/FallingSpices";
 
 export const metadata: Metadata = {
-  title: "About Us — The Curry Leaf, Lubowa",
+  title: "About Us — Indian Street Kitchen & Social House | The Curry Leaf, Lubowa",
   description:
-    "The story of The Curry Leaf — an Indian Kitchen & Social House in a converted garden home in Lubowa, Kampala, alongside Bombay Adda and The Pizza Place.",
+    "The story of The Curry Leaf — an Indian street kitchen turned Indian Kitchen & Social House, bringing the royal spice of Indian cuisine to a converted garden home in Lubowa, Kampala, alongside Bombay Adda and The Pizza Place.",
+  keywords: [
+    "indian street kitchen",
+    "indian delicacy",
+    "cuisine india",
+    "royal spice",
+    "indian traditional food",
+    "spice india",
+  ],
 };
 
 export default function AboutPage() {
