@@ -20,7 +20,7 @@ export default function ReservationsPage() {
             Reserve Your Table
           </h1>
           <p className="mt-5 leading-relaxed text-cocoa/70">
-            Whether it&apos;s a quiet dinner on the veranda, a family thali
+            Whether it&apos;s a quiet dinner on the veranda, a family sharing
             lunch, or the full Sunday Grand Buffet — tell us when, and
             we&apos;ll have your table ready.
           </p>

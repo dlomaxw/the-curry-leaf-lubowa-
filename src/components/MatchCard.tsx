@@ -1,6 +1,48 @@
 import type { BarScheduleRow } from "@/data/bar";
 
-const AVATAR_COLORS = ["#53633F", "#A63827", "#C99528", "#2E3823", "#3E4B2F"];
+// Real primary shirt colours for the clubs on the schedule — a factual
+// colour association, not a reproduction of any club's crest artwork.
+// Keyed by the short form used in the schedule data (e.g. "Spurs").
+const TEAM_COLORS: Record<string, string> = {
+  Arsenal: "#EF0107",
+  Coventry: "#78D0F2",
+  Hull: "#F18A00",
+  "Man United": "#DA291C",
+  Brentford: "#E30613",
+  Spurs: "#132257",
+  "Man City": "#6CABDD",
+  Bournemouth: "#DA291C",
+  Newcastle: "#241F20",
+  Liverpool: "#C8102E",
+  Fulham: "#000000",
+  Chelsea: "#034694",
+  "Crystal Palace": "#1B458F",
+  "Nottingham Forest": "#DD0000",
+  Brighton: "#0057B8",
+  "Aston Villa": "#670E36",
+  Ipswich: "#0044A9",
+  Everton: "#003399",
+};
+
+// Full official club names, for display — the schedule data uses common
+// short forms (e.g. "Spurs", "Man United") to keep fixture text compact.
+const FULL_TEAM_NAMES: Record<string, string> = {
+  Coventry: "Coventry City",
+  Hull: "Hull City",
+  "Man United": "Manchester United",
+  Spurs: "Tottenham Hotspur",
+  "Man City": "Manchester City",
+  Bournemouth: "AFC Bournemouth",
+  Newcastle: "Newcastle United",
+  Brighton: "Brighton & Hove Albion",
+  Ipswich: "Ipswich Town",
+};
+
+const FALLBACK_COLORS = ["#53633F", "#A63827", "#C99528", "#2E3823", "#3E4B2F"];
+
+function fullName(shortName: string) {
+  return FULL_TEAM_NAMES[shortName] ?? shortName;
+}
 
 function initials(name: string) {
   return name
@@ -12,35 +54,44 @@ function initials(name: string) {
     .toUpperCase();
 }
 
-function colorFor(name: string) {
+function colorFor(shortName: string) {
+  if (TEAM_COLORS[shortName]) return TEAM_COLORS[shortName];
   let hash = 0;
-  for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash);
-  return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
+  for (let i = 0; i < shortName.length; i++) hash = shortName.charCodeAt(i) + ((hash << 5) - hash);
+  return FALLBACK_COLORS[Math.abs(hash) % FALLBACK_COLORS.length];
 }
 
-function TeamBadge({ name }: { name: string }) {
+function TeamBadge({ shortName }: { shortName: string }) {
   return (
     <div className="flex flex-1 flex-col items-center gap-2 text-center">
       <span
-        className="flex h-14 w-14 items-center justify-center rounded-full text-lg font-bold text-cream shadow-md"
-        style={{ backgroundColor: colorFor(name) }}
+        className="flex h-14 w-14 flex-none items-center justify-center rounded-full text-lg font-bold text-cream shadow-md ring-2 ring-cream/20"
+        style={{ backgroundColor: colorFor(shortName) }}
       >
-        {initials(name)}
+        {initials(shortName)}
       </span>
-      <span className="text-xs font-semibold leading-tight text-cocoa">
-        {name}
+      <span className="w-full text-[0.68rem] font-semibold leading-tight text-cream">
+        {fullName(shortName)}
       </span>
     </div>
   );
 }
 
+/** "Man United v Man City – Derby" -> { teams: ["Man United", "Man City"], tag: "Derby" } */
+function parseFixture(event: string) {
+  const [rawA, rest] = event.split(/\s+v\s+/i);
+  if (!rest) return { teams: null, tag: null };
+  const [rawB, tag] = rest.split(/\s+–\s+/);
+  return { teams: [rawA.trim(), rawB.trim()] as [string, string], tag: tag?.trim() ?? null };
+}
+
 export default function MatchCard({ row }: { row: BarScheduleRow }) {
-  const teams = row.isQuiz ? null : row.event.split(/\s+v\s+/i);
+  const { teams, tag } = row.isQuiz ? { teams: null, tag: null } : parseFixture(row.event);
 
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-white/60 bg-white shadow-lg shadow-cocoa/10">
       <div
-        className={`relative px-5 pt-5 pb-4 text-cream ${
+        className={`relative px-5 pt-5 pb-5 text-cream ${
           row.isQuiz
             ? "bg-gradient-to-br from-saffron to-chilli"
             : row.isBigMatch
@@ -48,17 +99,24 @@ export default function MatchCard({ row }: { row: BarScheduleRow }) {
               : "bg-gradient-to-br from-leaf-deep to-cocoa"
         }`}
       >
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-cream/15 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider backdrop-blur-sm">
-          {row.isQuiz ? "🍹 Quiz Night" : row.isBigMatch ? "⭐ Big Match" : "⚽ Live Match"}
-        </span>
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-cream/15 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider backdrop-blur-sm">
+            {row.isQuiz ? "🍹 Quiz Night" : row.isBigMatch ? "⭐ Big Match" : "⚽ Live Match"}
+          </span>
+          {tag && (
+            <span className="inline-flex items-center rounded-full bg-saffron px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-cocoa">
+              {tag}
+            </span>
+          )}
+        </div>
 
-        {teams && teams.length === 2 ? (
-          <div className="mt-4 flex items-center gap-3">
-            <TeamBadge name={teams[0].trim()} />
-            <span className="flex-none font-serif text-lg font-semibold text-cream/70">
+        {teams ? (
+          <div className="mt-4 flex items-start gap-2">
+            <TeamBadge shortName={teams[0]} />
+            <span className="mt-3.5 flex-none text-xs font-semibold text-cream/60">
               vs
             </span>
-            <TeamBadge name={teams[1].trim()} />
+            <TeamBadge shortName={teams[1]} />
           </div>
         ) : (
           <p className="mt-6 mb-2 text-center font-serif text-xl font-semibold">

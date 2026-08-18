@@ -11,6 +11,7 @@ async function getCounts() {
     menuItems,
     unavailableMenuItems,
     breakfastItems,
+    interestsToday,
   ] = await Promise.all([
     prisma.reservation.count({ where: { status: "RECEIVED" } }),
     prisma.breakfastOrder.count({ where: { status: "RECEIVED" } }),
@@ -18,6 +19,9 @@ async function getCounts() {
     prisma.menuItem.count(),
     prisma.menuItem.count({ where: { available: false } }),
     prisma.breakfastItem.count(),
+    prisma.websiteInterest.count({
+      where: { createdAt: { gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) } },
+    }),
   ]);
   return {
     newReservations,
@@ -26,11 +30,12 @@ async function getCounts() {
     menuItems,
     unavailableMenuItems,
     breakfastItems,
+    interestsToday,
   };
 }
 
 async function getRecentActivity() {
-  const [reservations, orders, enquiries] = await Promise.all([
+  const [reservations, orders, enquiries, interests] = await Promise.all([
     prisma.reservation.findMany({
       orderBy: { createdAt: "desc" },
       take: 5,
@@ -40,6 +45,10 @@ async function getRecentActivity() {
       take: 5,
     }),
     prisma.enquiry.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 5,
+    }),
+    prisma.websiteInterest.findMany({
       orderBy: { createdAt: "desc" },
       take: 5,
     }),
@@ -70,6 +79,14 @@ async function getRecentActivity() {
       href: "/admin/enquiries",
       createdAt: e.createdAt,
     })),
+    ...interests.map((i) => ({
+      id: `int-${i.id}`,
+      kind: "WhatsApp Interest" as const,
+      title: `From ${i.source}`,
+      subtitle: i.message,
+      href: "/admin/interests",
+      createdAt: i.createdAt,
+    })),
   ];
 
   return items
@@ -81,6 +98,7 @@ const kindStyle: Record<string, string> = {
   Reservation: "bg-leaf/10 text-leaf",
   "Breakfast Order": "bg-saffron/15 text-saffron",
   Enquiry: "bg-chilli/10 text-chilli",
+  "WhatsApp Interest": "bg-cocoa/10 text-cocoa/70",
 };
 
 export default async function AdminOverviewPage() {
@@ -115,6 +133,13 @@ export default async function AdminOverviewPage() {
           : "All available",
       href: "/admin/menu",
       accent: "border-sand",
+    },
+    {
+      label: "WhatsApp Interest",
+      value: counts.interestsToday,
+      sub: "Last 7 days",
+      href: "/admin/interests",
+      accent: "border-cocoa",
     },
   ];
 

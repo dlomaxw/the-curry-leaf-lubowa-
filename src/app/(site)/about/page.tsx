@@ -57,7 +57,7 @@ export default function AboutPage() {
           {[
             {
               title: "The Curry Leaf",
-              text: "Our heart — authentic Indian kitchen classics from the tandoor and karahi, thali lunches and the Sunday Grand Buffet.",
+              text: "Our heart — authentic Indian kitchen classics from the tandoor and karahi, sharing platters and the Sunday Grand Buffet.",
             },
             {
               title: "Bombay Adda",

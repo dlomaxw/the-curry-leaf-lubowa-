@@ -7,7 +7,7 @@ import { categories } from "@/data/menu";
 export const metadata: Metadata = {
   title: "Indian Menu — South Indian & Popular Indian Dishes | The Curry Leaf, Lubowa",
   description:
-    "Browse the full Curry Leaf menu — south Indian dishes and popular Indian dishes alike, from tandoori appetisers and butter chicken to biryani, vegetarian curries, tandoor breads and thali lunches. Tasty, traditional Indian food — order Indian food online. All prices inclusive of VAT.",
+    "Browse the full Curry Leaf menu — south Indian dishes and popular Indian dishes alike, from tandoori appetisers and butter chicken to biryani, vegetarian curries, tandoor breads and naan rolls. Tasty, traditional Indian food — order Indian food online. All prices inclusive of VAT.",
   keywords: [
     "indian dishes",
     "south indian dishes",

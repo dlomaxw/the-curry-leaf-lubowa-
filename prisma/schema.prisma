@@ -164,3 +164,14 @@ model Enquiry {
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
 }
+
+/// Logged whenever a visitor clicks a "Message us on WhatsApp" link that
+/// isn't backed by a form (Bar, Book Clubs, Film Festival, Contact) — so
+/// staff can see that interest in the dashboard even though the actual
+/// conversation happens in WhatsApp, outside our database.
+model WebsiteInterest {
+  id        String   @id @default(cuid())
+  source    String
+  message   String
+  createdAt DateTime @default(now())
+}

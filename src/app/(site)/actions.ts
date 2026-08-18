@@ -112,3 +112,18 @@ export async function submitBreakfastOrder(data: {
     console.error("submitBreakfastOrder failed", err);
   }
 }
+
+/** Fire-and-forget log for "Message us on WhatsApp" links that aren't
+    backed by a form, so staff still see the interest in the dashboard. */
+export async function logInterest(source: string, message: string) {
+  try {
+    await prisma.websiteInterest.create({
+      data: {
+        source: source.trim().slice(0, 50),
+        message: message.trim().slice(0, 500),
+      },
+    });
+  } catch (err) {
+    console.error("logInterest failed", err);
+  }
+}

@@ -5,6 +5,7 @@ import { barOffers } from "@/data/bar";
 import { whatsappLink } from "@/data/site";
 import { getBarItems, type BarItemRow } from "@/lib/data/bar";
 import JsonLd from "@/components/JsonLd";
+import TrackedWhatsAppLink from "@/components/TrackedWhatsAppLink";
 
 export const metadata: Metadata = {
   title: "Bombay Adda Bar — Cocktails & Drinks | The Curry Leaf, Lubowa",
@@ -90,16 +91,16 @@ export default async function BarPage() {
             that sits right alongside your table at The Curry Leaf.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <a
+            <TrackedWhatsAppLink
               href={whatsappLink(
                 "Hello Bombay Adda! I'd like to know more about the bar.",
               )}
-              target="_blank"
-              rel="noopener noreferrer"
+              source="bar"
+              message="Hello Bombay Adda! I'd like to know more about the bar."
               className="rounded-full bg-saffron px-8 py-3.5 font-semibold text-cocoa transition-transform hover:scale-105 hover:bg-saffron-light"
             >
               Message Us on WhatsApp
-            </a>
+            </TrackedWhatsAppLink>
             <Link
               href="/reservations"
               className="rounded-full border border-cream/40 px-8 py-3.5 font-semibold text-cream transition-colors hover:border-saffron-light hover:text-saffron-light"

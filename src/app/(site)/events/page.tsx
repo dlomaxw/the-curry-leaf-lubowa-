@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { barSchedule } from "@/data/bar";
-import { festival } from "@/data/filmFestival";
+import { festival, nextScreening } from "@/data/filmFestival";
 import { bookClubs } from "@/data/bookClubs";
 import { communityEvents } from "@/data/communityEvents";
 import Carousel from "@/components/Carousel";
@@ -14,6 +15,9 @@ export const metadata: Metadata = {
 };
 
 export default function EventsPage() {
+  const featuredScreening = nextScreening();
+  const featuredBook = bookClubs[0];
+
   return (
     <div className="pt-24">
       <div className="mx-auto max-w-content px-5 py-12 text-center lg:px-8">
@@ -72,40 +76,75 @@ export default function EventsPage() {
       <div className="mx-auto grid max-w-content gap-6 px-5 pb-4 sm:grid-cols-2 lg:px-8">
         <Link
           href="/film-festival"
-          className="group rounded-3xl border border-white/60 bg-white/70 p-8 shadow-lg shadow-cocoa/5 backdrop-blur-md transition-shadow hover:shadow-xl"
+          className="group overflow-hidden rounded-3xl border border-white/60 bg-white/70 shadow-lg shadow-cocoa/5 backdrop-blur-md transition-shadow hover:shadow-xl"
         >
-          <p className="text-xs uppercase tracking-[0.3em] text-saffron">
-            {festival.dates}
-          </p>
-          <h2 className="mt-2 font-serif text-2xl font-semibold text-leaf-deep">
-            {festival.name}
-          </h2>
-          <p className="mt-3 text-sm leading-relaxed text-cocoa/70">
-            {festival.intro}
-          </p>
-          <span className="mt-5 inline-block text-sm font-semibold text-saffron group-hover:underline">
-            See the full schedule →
-          </span>
+          {featuredScreening && (
+            <div className="relative aspect-[16/9] w-full overflow-hidden bg-cocoa">
+              <Image
+                src={`https://img.youtube.com/vi/${featuredScreening.film.youtubeId}/hqdefault.jpg`}
+                alt={featuredScreening.film.title}
+                fill
+                sizes="(max-width: 640px) 100vw, 50vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                unoptimized
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-cocoa/80 via-cocoa/10 to-transparent" />
+              <span className="absolute bottom-3 left-4 font-serif text-lg font-semibold text-cream drop-shadow">
+                {featuredScreening.film.title}
+              </span>
+            </div>
+          )}
+          <div className="p-8">
+            <p className="text-xs uppercase tracking-[0.3em] text-saffron">
+              {festival.dates}
+            </p>
+            <h2 className="mt-2 font-serif text-2xl font-semibold text-leaf-deep">
+              {festival.name}
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-cocoa/70">
+              {festival.intro}
+            </p>
+            <span className="mt-5 inline-block text-sm font-semibold text-saffron group-hover:underline">
+              See the full schedule →
+            </span>
+          </div>
         </Link>
 
         <Link
           href="/book-clubs"
-          className="group rounded-3xl border border-white/60 bg-white/70 p-8 shadow-lg shadow-cocoa/5 backdrop-blur-md transition-shadow hover:shadow-xl"
+          className="group overflow-hidden rounded-3xl border border-white/60 bg-white/70 shadow-lg shadow-cocoa/5 backdrop-blur-md transition-shadow hover:shadow-xl"
         >
-          <p className="text-xs uppercase tracking-[0.3em] text-saffron">
-            Monthly
-          </p>
-          <h2 className="mt-2 font-serif text-2xl font-semibold text-leaf-deep">
-            Book Clubs
-          </h2>
-          <p className="mt-3 text-sm leading-relaxed text-cocoa/70">
-            Two monthly book clubs — The Booker Prize Book Club and The Asian
-            Book Club. Next meetings:{" "}
-            {bookClubs.map((c) => c.firstMeeting).join(" · ")}.
-          </p>
-          <span className="mt-5 inline-block text-sm font-semibold text-saffron group-hover:underline">
-            See both clubs →
-          </span>
+          <div className="flex gap-5 p-8 pb-0">
+            {featuredBook?.currentRead.cover && (
+              <div className="relative aspect-[2/3] w-24 flex-none overflow-hidden rounded-lg shadow-md shadow-cocoa/25 transition-transform group-hover:-translate-y-1">
+                <Image
+                  src={featuredBook.currentRead.cover}
+                  alt={`${featuredBook.currentRead.title} cover`}
+                  fill
+                  sizes="6rem"
+                  className="object-cover"
+                />
+              </div>
+            )}
+            <div className="min-w-0">
+              <p className="text-xs uppercase tracking-[0.3em] text-saffron">
+                Monthly
+              </p>
+              <h2 className="mt-2 font-serif text-2xl font-semibold text-leaf-deep">
+                Book Clubs
+              </h2>
+            </div>
+          </div>
+          <div className="p-8 pt-4">
+            <p className="text-sm leading-relaxed text-cocoa/70">
+              Two monthly book clubs — The Booker Prize Book Club and The
+              Asian Book Club. Next meetings:{" "}
+              {bookClubs.map((c) => c.firstMeeting).join(" · ")}.
+            </p>
+            <span className="mt-5 inline-block text-sm font-semibold text-saffron group-hover:underline">
+              See both clubs →
+            </span>
+          </div>
         </Link>
       </div>
 
@@ -125,7 +164,7 @@ export default function EventsPage() {
           </Link>
         </p>
         <div className="relative mt-14">
-          <Carousel>
+          <Carousel cardWidthClass="w-80">
             {barSchedule.map((row, i) => (
               <MatchCard key={`${row.date}-${row.time}-${i}`} row={row} />
             ))}

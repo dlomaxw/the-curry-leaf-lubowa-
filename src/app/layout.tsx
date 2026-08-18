@@ -64,7 +64,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://thecurryleaf.ug"),
   title: "The Curry Leaf — Indian Kitchen & Social House, Lubowa",
   description:
-    "Experience authentic Indian flavours, premium hospitality and unforgettable dining at The Curry Leaf, Lubowa, Kampala. Thali lunches, tandoor specialities, biryani and the Sunday Grand Buffet.",
+    "Experience authentic Indian flavours, premium hospitality and unforgettable dining at The Curry Leaf, Lubowa, Kampala. Sharing platters, tandoor specialities, biryani and the Sunday Grand Buffet.",
   keywords: [
     "indian food close to me",
     "indian meals",

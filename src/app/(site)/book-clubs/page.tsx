@@ -4,6 +4,7 @@ import Reveal from "@/components/Reveal";
 import FallingSpices from "@/components/FallingSpices";
 import BookClubCard from "@/components/BookClubCard";
 import Carousel from "@/components/Carousel";
+import TrackedWhatsAppLink from "@/components/TrackedWhatsAppLink";
 import {
   bookClubs,
   bookClubsIntro,
@@ -60,16 +61,16 @@ export default function BookClubsPage() {
             If you&apos;d like to join, message us directly and we&apos;ll add
             you to the relevant WhatsApp group.
           </p>
-          <a
+          <TrackedWhatsAppLink
             href={bookClubWhatsappLink(
               "Hello! I'd like to join a Curry Leaf book club.",
             )}
-            target="_blank"
-            rel="noopener noreferrer"
+            source="book-clubs"
+            message="Hello! I'd like to join a Curry Leaf book club."
             className="mt-6 inline-block rounded-full bg-saffron px-8 py-3.5 font-semibold text-cocoa transition-transform hover:scale-105 hover:bg-saffron-light"
           >
             Message {bookClubContact.name} on WhatsApp
-          </a>
+          </TrackedWhatsAppLink>
           <p className="mt-4 text-xs uppercase tracking-wider text-cocoa/50">
             {bookClubContact.phoneDisplay} · {bookClubContact.note}
           </p>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { site, whatsappLink } from "@/data/site";
+import TrackedWhatsAppLink from "@/components/TrackedWhatsAppLink";
 
 export const metadata: Metadata = {
   title: "Contact & Location — The Curry Leaf, Lubowa",
@@ -65,16 +66,16 @@ export default function ContactPage() {
           </dl>
 
           <div className="mt-10 flex flex-wrap gap-4">
-            <a
+            <TrackedWhatsAppLink
               href={whatsappLink(
                 "Hello The Curry Leaf! I have a question.",
               )}
-              target="_blank"
-              rel="noopener noreferrer"
+              source="contact"
+              message="Hello The Curry Leaf! I have a question."
               className="rounded-full bg-leaf px-8 py-3.5 font-semibold text-cream transition-transform hover:scale-105"
             >
               Message Us on WhatsApp
-            </a>
+            </TrackedWhatsAppLink>
             <a
               href={`tel:${site.phoneHref}`}
               className="rounded-full border border-leaf px-8 py-3.5 font-semibold text-leaf transition-colors hover:bg-leaf hover:text-cream"

@@ -6,6 +6,7 @@ import ScreeningCard from "@/components/ScreeningCard";
 import Reveal from "@/components/Reveal";
 import FestivalFabricBackdrop from "@/components/FestivalFabricBackdrop";
 import Carousel from "@/components/Carousel";
+import TrackedWhatsAppLink from "@/components/TrackedWhatsAppLink";
 
 export const metadata: Metadata = {
   title: "Indian Film Festival — The Curry Leaf, Lubowa",
@@ -65,16 +66,16 @@ export default function FilmFestivalPage() {
           </div>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <a
+            <TrackedWhatsAppLink
               href={whatsappLink(
                 "Hello! I'd like to know more about the Indian Film Festival.",
               )}
-              target="_blank"
-              rel="noopener noreferrer"
+              source="film-festival"
+              message="Hello! I'd like to know more about the Indian Film Festival."
               className="rounded-full bg-saffron px-8 py-3.5 font-semibold text-cocoa transition-transform hover:scale-105 hover:bg-saffron-light"
             >
               Ask Us About the Festival
-            </a>
+            </TrackedWhatsAppLink>
             <a
               href="#schedule"
               className="rounded-full border border-cream/40 px-8 py-3.5 font-semibold text-cream transition-colors hover:border-saffron-light hover:text-saffron-light"

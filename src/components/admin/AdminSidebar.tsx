@@ -13,6 +13,7 @@ const links = [
   { href: "/admin/reservations", label: "Reservations" },
   { href: "/admin/breakfast-orders", label: "Breakfast Orders" },
   { href: "/admin/enquiries", label: "Enquiries" },
+  { href: "/admin/interests", label: "WhatsApp Interest" },
   { href: "/admin/staff", label: "Staff Accounts", adminOnly: true },
   { href: "/admin/account", label: "My Account" },
 ];

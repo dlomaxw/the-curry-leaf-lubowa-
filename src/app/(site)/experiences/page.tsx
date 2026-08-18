@@ -6,7 +6,7 @@ import { formatUGX, sundayBuffet } from "@/data/menu";
 export const metadata: Metadata = {
   title: "Dining Experiences — The Curry Leaf, Lubowa",
   description:
-    "Family feasts, corporate dining and private celebrations at The Curry Leaf, Lubowa. Thali lunches, business pizza combos and customised event packages.",
+    "Family feasts, corporate dining and private celebrations at The Curry Leaf, Lubowa. Sharing platters, business pizza combos and customised event packages.",
 };
 
 const sections = [
@@ -16,12 +16,12 @@ const sections = [
     title: "Family Dining",
     accent: "text-saffron",
     intro:
-      "Sunday afternoons in the garden, thalis built for sharing, and a kitchen that loves feeding families. Bring everyone.",
+      "Sunday afternoons in the garden, platters built for sharing, and a kitchen that loves feeding families. Bring everyone.",
     packages: [
       {
-        name: "Weekend Family Thali Lunch",
+        name: "Family Sharing Platters",
         detail:
-          "Thali lunches every day, 12pm–3pm. Vegetarian and vegan thalis at UGX 38,000, Chicken Thali at UGX 48,000, and the Curry Leaf Signature Thali with Butter Chicken and Goat Curry at UGX 58,000.",
+          "Tandoori Sharing Platters built for the table — the Maharaja Mixed Grill Platter (UGX 148,000) or the Vegetarian Tandoori Platter (UGX 78,000) — plus à la carte curries, biryanis and fresh naan for everyone. Available daily.",
       },
       {
         name: sundayBuffet.name,
@@ -50,9 +50,9 @@ const sections = [
           "Any 2 pizzas, 2 soft drinks and 2 ice creams — UGX 85,000. Perfect for a fast working lunch for two.",
       },
       {
-        name: "Executive Thali Lunch",
+        name: "Executive Lunch Menu",
         detail:
-          "A complete Indian meal on one platter, served fast: curry selection, rice, naan, accompaniments, dessert and masala chai. Great for meetings, 12pm–3pm daily.",
+          "A fast, complete Indian meal for the table: a curry selection, rice, naan, accompaniments, dessert and masala chai. Great for meetings, served daily.",
       },
       {
         name: "Client Entertainment & Team Dinners",

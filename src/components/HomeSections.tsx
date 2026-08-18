@@ -211,13 +211,13 @@ export function BuffetBand() {
 const experiences = [
   {
     title: "Family Dining",
-    text: "Thali platters, sharing feasts and a garden the children can run in. Weekend family lunches are what we were built for.",
+    text: "Tandoori sharing platters, family feasts and a garden the children can run in. Weekend family lunches are what we were built for.",
     href: "/experiences#family",
     accent: "border-saffron",
   },
   {
     title: "Corporate & Business",
-    text: "Business pizza lunches, executive thalis and private meeting tables — minutes from Entebbe Road.",
+    text: "Business pizza lunches, executive lunch menus and private meeting tables — minutes from Entebbe Road.",
     href: "/experiences#corporate",
     accent: "border-leaf",
   },
